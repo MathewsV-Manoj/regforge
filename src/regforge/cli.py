@@ -198,7 +198,7 @@ def cmd_gen(args: argparse.Namespace) -> int:
     else:
         record = corpus.get(args.part)
         if record is None:
-            _err(f"{args.part!r} is not in the corpus at {corpus.root}")
+            _err(f"{args.part!r} is not in the corpus (searched: {', '.join(str(r) for r in corpus.search_roots)})")
             matches = corpus.find(args.part)
             if matches:
                 print("did you mean:", file=sys.stderr)
@@ -224,7 +224,7 @@ def cmd_check(args: argparse.Namespace) -> int:
     corpus = Corpus(args.corpus)
     record = corpus.load_path(Path(args.file)) if args.file else corpus.get(args.part)
     if record is None:
-        _err(f"{args.part!r} is not in the corpus at {corpus.root}")
+        _err(f"{args.part!r} is not in the corpus (searched: {', '.join(str(r) for r in corpus.search_roots)})")
         return 1
     return 0 if _report(record, show_info=args.verbose) else 2
 
@@ -233,11 +233,14 @@ def cmd_list(args: argparse.Namespace) -> int:
     corpus = Corpus(args.corpus)
     entries = corpus.find(args.query) if args.query else corpus.list_all()
     if not entries:
-        print(f"corpus at {corpus.root} is empty")
+        print(f"no parts found (writable corpus: {corpus.root})")
         return 0
-    print(f"{'part':<20} {'manufacturer':<24} {'regs':>5}  verified")
+    print(f"{'part':<20} {'manufacturer':<24} {'regs':>5}  {'verified':<9} source")
     for e in entries:
-        print(f"{e.part_number:<20} {e.manufacturer:<24} {e.register_count:>5}  {'yes' if e.verified else 'no'}")
+        print(
+            f"{e.part_number:<20} {e.manufacturer:<24} {e.register_count:>5}  "
+            f"{('yes' if e.verified else 'no'):<9} {'bundled' if e.bundled else 'local'}"
+        )
     return 0
 
 
@@ -256,10 +259,15 @@ def cmd_verify(args: argparse.Namespace) -> int:
 
 
 def cmd_stats(args: argparse.Namespace) -> int:
+    from .corpus import bundled_corpus_dir
+
     corpus = Corpus(args.corpus)
     s = corpus.stats()
-    print(f"corpus: {corpus.root}")
-    print(f"  parts         {s['parts']}")
+    print(f"writable corpus: {corpus.root}")
+    bundled = bundled_corpus_dir()
+    print(f"bundled corpus:  {bundled if bundled.is_dir() else '(none - running from a source checkout)'}")
+    print()
+    print(f"  parts         {s['parts']}  ({s['local']} local, {s['bundled']} bundled)")
     print(f"  verified      {s['verified']} ({s['verified_pct']}%)")
     print(f"  manufacturers {s['manufacturers']}")
     print(f"  registers     {s['registers']}")

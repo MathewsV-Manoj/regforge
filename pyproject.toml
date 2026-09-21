@@ -24,13 +24,32 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0"]
+dev = ["pytest>=8.0", "fpdf2>=2.7"]
 
 [project.scripts]
 regforge = "regforge.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/regforge"]
+
+# Ship the corpus inside the wheel. Without this, `pip install regforge` gives
+# you a tool with zero parts in it and `regforge gen BME280` fails for everyone
+# who did not clone the repository -- which defeats the entire point of having
+# a corpus. corpus.py treats this layer as read-only and writes elsewhere.
+[tool.hatch.build.targets.wheel.force-include]
+"corpus" = "regforge/corpus_data"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/",
+    "tests/",
+    "examples/",
+    "corpus/",
+    "README.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "pyproject.toml",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
