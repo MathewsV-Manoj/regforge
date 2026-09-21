@@ -127,7 +127,7 @@ export ANTHROPIC_API_KEY=sk-ant-...
 From source:
 
 ```bash
-git clone https://github.com/<you>/regforge && cd regforge
+git clone https://github.com/MathewsV-Manoj/regforge && cd regforge
 pip install -e ".[dev]"
 python examples/seed_corpus.py      # writes the seed corpus
 regforge gen BME280 --out ./out --driver

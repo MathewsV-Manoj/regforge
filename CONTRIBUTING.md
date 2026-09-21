@@ -92,7 +92,7 @@ primary address once and note the alternate in the description. `MCP23017`'s
 ## Development
 
 ```bash
-git clone https://github.com/<you>/regforge && cd regforge
+git clone https://github.com/MathewsV-Manoj/regforge && cd regforge
 python -m venv .venv && .venv/bin/pip install -e ".[dev]"
 pytest -q
 ```

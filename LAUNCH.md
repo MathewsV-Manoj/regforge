@@ -58,7 +58,7 @@ Then, in the repo settings:
 - **Description:** `Turn a datasheet into a verified register map and driver code.`
 - **Topics:** `embedded`, `firmware`, `datasheet`, `code-generation`, `i2c`,
   `spi`, `register-map`, `c`, `claude`
-- Replace `https://github.com/<you>/regforge` in `README.md` and
+- Replace `https://github.com/MathewsV-Manoj/regforge` in `README.md` and
   `CONTRIBUTING.md` with the real URL.
 - Check the Actions tab. All four CI jobs should pass. **If the negative test in
   `generated-code-compiles` fails, stop** — that means the self-check assertions

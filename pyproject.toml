@@ -26,6 +26,11 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "fpdf2>=2.7"]
 
+[project.urls]
+Homepage = "https://github.com/MathewsV-Manoj/regforge"
+Repository = "https://github.com/MathewsV-Manoj/regforge"
+Issues = "https://github.com/MathewsV-Manoj/regforge/issues"
+
 [project.scripts]
 regforge = "regforge.cli:main"
 
