@@ -165,8 +165,10 @@ comments:
 
 **`bme280.h` / `bme280.c`** (with `--driver`) — a bus-agnostic skeleton. Register
 access, read-modify-write masking, burst reads and the chip-ID probe are
-generated complete. The two things a generator cannot know — how *your* board
-talks I2C or SPI — are two function pointers you fill in:
+generated complete, and typed to the part's actual register width: a 16-bit
+device like the ADS1115 gets a `uint16_t` accessor, not a `uint8_t` one that
+would quietly read half a register. The two things a generator cannot know —
+how *your* board talks I2C or SPI — are two function pointers you fill in:
 
 ```c
 bme280_t dev;
@@ -181,7 +183,14 @@ bme280_write_reg(&dev, BME280_CTRL_MEAS, ctrl);
 ```
 
 Generated code that pretends to know your HAL is worse than no generated code
-at all, so RegForge does not pretend.
+at all, so RegForge does not pretend. The same applies to byte order: a
+register map does not record whether a multi-byte register goes out MSB- or
+LSB-first, so the driver documents its assumption (MSB first) and gives you a
+`#define` to flip it, rather than guessing silently.
+
+The drivers are compiled *and run* in CI against a fake transport, because
+compiling only proves the macros parse — running is what proves the bytes come
+back in the right order.
 
 ---
 

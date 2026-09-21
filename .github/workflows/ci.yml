@@ -79,6 +79,31 @@ jobs:
             echo "OK  $f"
           done
 
+      - name: Run the generated drivers against a fake transport
+        # Compiling proves the macros parse. Only running proves the driver
+        # reassembles bytes in the right order -- the check that would have
+        # caught a uint8_t accessor being emitted for a 16-bit register.
+        run: |
+          set -e
+          for part in ads1115 bme280; do
+            gcc -std=c99 -Wall -Wextra -Wpedantic -Werror \
+                -I ci-out "tests/c_runtime/${part}_runtime_test.c" "ci-out/${part}.c" \
+                -o "/tmp/${part}_rt"
+            "/tmp/${part}_rt"
+          done
+
+      - name: Byte order must be switchable, not decorative
+        run: |
+          set -e
+          # Built LSB-first, the MSB-first expectations in the harness must fail.
+          gcc -std=c99 -Wall -Wextra -Werror -DADS1115_LSB_FIRST \
+              -I ci-out tests/c_runtime/ads1115_runtime_test.c ci-out/ads1115.c -o /tmp/lsb_rt
+          if /tmp/lsb_rt > /dev/null 2>&1; then
+            echo "FAIL: ADS1115_LSB_FIRST changed nothing -- the byte order switch is dead code"
+            exit 1
+          fi
+          echo "OK  ADS1115_LSB_FIRST genuinely swaps the wire order"
+
       - name: Self-check must actually be able to fail
         working-directory: ci-out
         run: |

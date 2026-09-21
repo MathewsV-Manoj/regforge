@@ -38,9 +38,12 @@ def _banner(record: DeviceRecord, guard: str) -> list[str]:
         lines.append(f" * Extracted: {p.extraction_model} on {p.extracted_at or 'unknown date'}")
     # "NOT VERIFIED" is deliberately the same string the driver banner uses, so
     # a single grep across a source tree finds every unreviewed generated file.
-    lines.append(
-        f" * Verified:  {'yes, by ' + (p.verified_by or 'unknown') if p.verified else 'NOT VERIFIED -- machine-extracted, review before trusting'}"
-    )
+    if p.verified:
+        verified = f"yes, by {p.verified_by or 'unknown'}"
+    else:
+        how = "machine-extracted" if p.extraction_model else "hand-transcribed"
+        verified = f"NOT VERIFIED -- {how}, review before trusting"
+    lines.append(f" * Verified:  {verified}")
     lines += [
         " */",
         "",
@@ -107,13 +110,13 @@ def _field_lines(prefix: str, reg_name: str, f: BitField, reg_bits: int, alloc: 
     return out
 
 
-def _register_section(prefix: str, reg: Register, alloc: NameAllocator) -> list[str]:
+def _register_section(prefix: str, reg: Register, alloc: NameAllocator, addr_bits: int = 8) -> list[str]:
     rname = alloc.take(f"{prefix}_{c_ident(reg.name)}")
     pad = 46
 
     header = [
         _RULE,
-        f"/* {reg.name} @ {hex_literal(reg.address, 16)}"
+        f"/* {reg.name} @ {hex_literal(reg.address, addr_bits)}"
         f"  {reg.access.value}  {reg.size_bits}-bit"
         + (f"  reset {hex_literal(reg.reset_value, reg.size_bits)}" if reg.reset_value is not None else "")
         + " */",
@@ -123,7 +126,7 @@ def _register_section(prefix: str, reg: Register, alloc: NameAllocator) -> list[
     header.append(_RULE)
     header.append("")
 
-    body = [f"#define {rname:<{pad}} {hex_literal(reg.address, 16)}"]
+    body = [f"#define {rname:<{pad}} {hex_literal(reg.address, addr_bits)}"]
     body.append(f"#define {rname + '_WIDTH':<{pad}} {reg.size_bits}u")
     if reg.reset_value is not None:
         body.append(f"#define {rname + '_RESET':<{pad}} {hex_literal(reg.reset_value, reg.size_bits)}")
@@ -150,7 +153,7 @@ def generate_regs_header(record: DeviceRecord) -> str:
     lines += _device_section(record, prefix)
 
     for reg in record.device.registers:
-        lines += _register_section(prefix, reg, alloc)
+        lines += _register_section(prefix, reg, alloc, record.device.register_address_bits)
 
     lines += [
         "#ifdef __cplusplus",
