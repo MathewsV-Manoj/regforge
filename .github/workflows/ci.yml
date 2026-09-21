@@ -1,0 +1,65 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: pytest (py${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e ".[dev]"
+      - run: pytest -q
+
+  generated-code-compiles:
+    # The real regression test. The Python suite checks that we emit the macros
+    # we meant to; this checks that a C compiler agrees the bit arithmetic is
+    # correct, which is the only claim that actually matters to a user.
+    name: generated C compiles and self-checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+
+      - name: Seed the corpus and generate
+        run: |
+          python examples/seed_bme280.py
+          regforge gen BME280 --out ./ci-out --driver --tests
+
+      - name: Compile driver and self-check (C99, C11, C++17)
+        working-directory: ci-out
+        run: |
+          set -e
+          for std in c99 c11; do
+            gcc -std=$std -Wall -Wextra -Wpedantic -Werror -c bme280_regs_test.c -o /dev/null
+            gcc -std=$std -Wall -Wextra -Wpedantic -Werror -c bme280.c -o /dev/null
+            echo "OK  gcc -std=$std"
+          done
+          g++ -std=c++17 -Wall -Wextra -Werror -c bme280_regs_test.c -o /dev/null
+          echo "OK  g++ -std=c++17"
+
+      - name: Self-check must actually be able to fail
+        working-directory: ci-out
+        run: |
+          # Corrupt a mask. If the generated assertions still compile, they are
+          # decorative and this job is lying about correctness.
+          sed -i 's/\(#define BME280_CTRL_MEAS_OSRS_T_MASK *\)0xE0u/\10xC0u/' bme280_regs.h
+          grep -q '0xC0u' bme280_regs.h || { echo "negative test did not patch the header"; exit 1; }
+          if gcc -std=c99 -Werror -c bme280_regs_test.c -o /dev/null 2>/dev/null; then
+            echo "FAIL: corrupted mask still compiled -- assertions are not load-bearing"
+            exit 1
+          fi
+          echo "OK  corrupted mask is rejected by the generated self-check"

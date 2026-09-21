@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "regforge"
+version = "0.1.0"
+description = "Turn a datasheet into a verified register map and driver code."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+keywords = ["embedded", "datasheet", "register-map", "firmware", "codegen", "i2c", "spi"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Embedded Systems",
+    "Topic :: Software Development :: Code Generators",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "anthropic>=1.0",
+    "pydantic>=2.7",
+    "pypdf>=4.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+regforge = "regforge.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/regforge"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

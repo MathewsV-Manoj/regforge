@@ -1,0 +1,425 @@
+{
+  "device": {
+    "buses": [
+      "i2c",
+      "spi"
+    ],
+    "description": "Combined humidity, pressure and temperature sensor",
+    "i2c_addresses": [
+      118,
+      119
+    ],
+    "manufacturer": "Bosch Sensortec",
+    "part_number": "BME280",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "ro",
+        "address": 208,
+        "description": "Chip identification number. Reads 0x60 on a BME280.",
+        "fields": [],
+        "name": "CHIP_ID",
+        "reset_value": 96,
+        "size_bits": 8
+      },
+      {
+        "access": "wo",
+        "address": 224,
+        "description": "Write 0xB6 to trigger a soft reset. Any other value is ignored. Reads return 0x00.",
+        "fields": [],
+        "name": "RESET",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 242,
+        "description": "Humidity acquisition options. Changes take effect only after a write to CTRL_MEAS.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 3,
+            "description": "Oversampling setting for humidity",
+            "enum_values": [
+              {
+                "description": "Measurement skipped, output set to 0x80000",
+                "name": "SKIPPED",
+                "value": 0
+              },
+              {
+                "description": "Oversampling x1",
+                "name": "X1",
+                "value": 1
+              },
+              {
+                "description": "Oversampling x2",
+                "name": "X2",
+                "value": 2
+              },
+              {
+                "description": "Oversampling x4",
+                "name": "X4",
+                "value": 3
+              },
+              {
+                "description": "Oversampling x8",
+                "name": "X8",
+                "value": 4
+              },
+              {
+                "description": "Oversampling x16",
+                "name": "X16",
+                "value": 5
+              }
+            ],
+            "name": "OSRS_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "CTRL_HUM",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 243,
+        "description": "Device status.",
+        "fields": [
+          {
+            "access": "ro",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Set while a conversion is running, cleared when results are ready",
+            "enum_values": [],
+            "name": "MEASURING",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Set while NVM data is being copied to image registers",
+            "enum_values": [],
+            "name": "IM_UPDATE",
+            "reset_value": 0
+          }
+        ],
+        "name": "STATUS",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 244,
+        "description": "Pressure and temperature acquisition options, and the sensor mode.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 3,
+            "description": "Oversampling setting for temperature",
+            "enum_values": [
+              {
+                "description": "Measurement skipped, output set to 0x80000",
+                "name": "SKIPPED",
+                "value": 0
+              },
+              {
+                "description": "Oversampling x1",
+                "name": "X1",
+                "value": 1
+              },
+              {
+                "description": "Oversampling x2",
+                "name": "X2",
+                "value": 2
+              },
+              {
+                "description": "Oversampling x4",
+                "name": "X4",
+                "value": 3
+              },
+              {
+                "description": "Oversampling x8",
+                "name": "X8",
+                "value": 4
+              },
+              {
+                "description": "Oversampling x16",
+                "name": "X16",
+                "value": 5
+              }
+            ],
+            "name": "OSRS_T",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 3,
+            "description": "Oversampling setting for pressure",
+            "enum_values": [
+              {
+                "description": "Measurement skipped, output set to 0x80000",
+                "name": "SKIPPED",
+                "value": 0
+              },
+              {
+                "description": "Oversampling x1",
+                "name": "X1",
+                "value": 1
+              },
+              {
+                "description": "Oversampling x2",
+                "name": "X2",
+                "value": 2
+              },
+              {
+                "description": "Oversampling x4",
+                "name": "X4",
+                "value": 3
+              },
+              {
+                "description": "Oversampling x8",
+                "name": "X8",
+                "value": 4
+              },
+              {
+                "description": "Oversampling x16",
+                "name": "X16",
+                "value": 5
+              }
+            ],
+            "name": "OSRS_P",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 2,
+            "description": "Sensor operating mode",
+            "enum_values": [
+              {
+                "description": "No measurements, minimum power",
+                "name": "SLEEP",
+                "value": 0
+              },
+              {
+                "description": "One measurement, then return to sleep",
+                "name": "FORCED",
+                "value": 1
+              },
+              {
+                "description": "Alternate encoding of forced mode",
+                "name": "FORCED_ALT",
+                "value": 2
+              },
+              {
+                "description": "Cycles between measuring and standby",
+                "name": "NORMAL",
+                "value": 3
+              }
+            ],
+            "name": "MODE",
+            "reset_value": 0
+          }
+        ],
+        "name": "CTRL_MEAS",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 245,
+        "description": "Rate, filter and interface options. Writes are ignored in normal mode.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 3,
+            "description": "Inactive duration in normal mode",
+            "enum_values": [
+              {
+                "description": "0.5 ms",
+                "name": "0_5_MS",
+                "value": 0
+              },
+              {
+                "description": "62.5 ms",
+                "name": "62_5_MS",
+                "value": 1
+              },
+              {
+                "description": "125 ms",
+                "name": "125_MS",
+                "value": 2
+              },
+              {
+                "description": "250 ms",
+                "name": "250_MS",
+                "value": 3
+              },
+              {
+                "description": "500 ms",
+                "name": "500_MS",
+                "value": 4
+              },
+              {
+                "description": "1000 ms",
+                "name": "1000_MS",
+                "value": 5
+              },
+              {
+                "description": "10 ms",
+                "name": "10_MS",
+                "value": 6
+              },
+              {
+                "description": "20 ms",
+                "name": "20_MS",
+                "value": 7
+              }
+            ],
+            "name": "T_SB",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 3,
+            "description": "IIR filter time constant",
+            "enum_values": [
+              {
+                "description": "Filter off",
+                "name": "OFF",
+                "value": 0
+              },
+              {
+                "description": "Coefficient 2",
+                "name": "COEFF_2",
+                "value": 1
+              },
+              {
+                "description": "Coefficient 4",
+                "name": "COEFF_4",
+                "value": 2
+              },
+              {
+                "description": "Coefficient 8",
+                "name": "COEFF_8",
+                "value": 3
+              },
+              {
+                "description": "Coefficient 16",
+                "name": "COEFF_16",
+                "value": 4
+              }
+            ],
+            "name": "FILTER",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Enable 3-wire SPI interface",
+            "enum_values": [],
+            "name": "SPI3W_EN",
+            "reset_value": 0
+          }
+        ],
+        "name": "CONFIG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 247,
+        "description": "Raw pressure, bits [19:12]",
+        "fields": [],
+        "name": "PRESS_MSB",
+        "reset_value": 128,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 248,
+        "description": "Raw pressure, bits [11:4]",
+        "fields": [],
+        "name": "PRESS_LSB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 249,
+        "description": "Raw pressure, bits [3:0] in bits [7:4]",
+        "fields": [],
+        "name": "PRESS_XLSB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 250,
+        "description": "Raw temperature, bits [19:12]",
+        "fields": [],
+        "name": "TEMP_MSB",
+        "reset_value": 128,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 251,
+        "description": "Raw temperature, bits [11:4]",
+        "fields": [],
+        "name": "TEMP_LSB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 252,
+        "description": "Raw temperature, bits [3:0] in bits [7:4]",
+        "fields": [],
+        "name": "TEMP_XLSB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 253,
+        "description": "Raw humidity, bits [15:8]",
+        "fields": [],
+        "name": "HUM_MSB",
+        "reset_value": 128,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 254,
+        "description": "Raw humidity, bits [7:0]",
+        "fields": [],
+        "name": "HUM_LSB",
+        "reset_value": 0,
+        "size_bits": 8
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. Check against the datasheet register section before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "BST-BME280-DS002 (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}
