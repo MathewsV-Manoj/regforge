@@ -1,0 +1,983 @@
+{
+  "device": {
+    "buses": [
+      "i2c",
+      "spi"
+    ],
+    "description": "3-axis MEMS accelerometer with FIFO, click and 4D detection",
+    "i2c_addresses": [
+      24,
+      25
+    ],
+    "manufacturer": "STMicroelectronics",
+    "part_number": "LIS3DH",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "ro",
+        "address": 7,
+        "description": "ADC data-ready and overrun flags",
+        "fields": [],
+        "name": "STATUS_REG_AUX",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 8,
+        "description": "ADC channel 1, low byte",
+        "fields": [],
+        "name": "OUT_ADC1_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 9,
+        "description": "ADC channel 1, high byte",
+        "fields": [],
+        "name": "OUT_ADC1_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 10,
+        "description": "ADC channel 2, low byte",
+        "fields": [],
+        "name": "OUT_ADC2_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 11,
+        "description": "ADC channel 2, high byte",
+        "fields": [],
+        "name": "OUT_ADC2_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 12,
+        "description": "ADC channel 3, low byte",
+        "fields": [],
+        "name": "OUT_ADC3_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 13,
+        "description": "ADC channel 3, high byte",
+        "fields": [],
+        "name": "OUT_ADC3_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 15,
+        "description": "Device identification. Always reads 0x33.",
+        "fields": [],
+        "name": "WHO_AM_I",
+        "reset_value": 51,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 30,
+        "description": "SDO/SA0 pull-up control. The reserved bits must be written as 0b0010000.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "1 disconnects the SDO/SA0 pull-up",
+            "enum_values": [],
+            "name": "SDO_PU_DISC",
+            "reset_value": 0
+          }
+        ],
+        "name": "CTRL_REG0",
+        "reset_value": 16,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 31,
+        "description": "Temperature sensor and ADC enable",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Enable the auxiliary ADC",
+            "enum_values": [],
+            "name": "ADC_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Enable the temperature sensor",
+            "enum_values": [],
+            "name": "TEMP_EN",
+            "reset_value": 0
+          }
+        ],
+        "name": "TEMP_CFG_REG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 32,
+        "description": "Output data rate, low-power mode and axis enables. Note the reset value: all three axes are enabled but ODR is power-down, so the part produces nothing until you set a rate.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 4,
+            "description": "Output data rate",
+            "enum_values": [
+              {
+                "description": "Power down (default)",
+                "name": "POWER_DOWN",
+                "value": 0
+              },
+              {
+                "description": "1 Hz",
+                "name": "HZ_1",
+                "value": 1
+              },
+              {
+                "description": "10 Hz",
+                "name": "HZ_10",
+                "value": 2
+              },
+              {
+                "description": "25 Hz",
+                "name": "HZ_25",
+                "value": 3
+              },
+              {
+                "description": "50 Hz",
+                "name": "HZ_50",
+                "value": 4
+              },
+              {
+                "description": "100 Hz",
+                "name": "HZ_100",
+                "value": 5
+              },
+              {
+                "description": "200 Hz",
+                "name": "HZ_200",
+                "value": 6
+              },
+              {
+                "description": "400 Hz",
+                "name": "HZ_400",
+                "value": 7
+              },
+              {
+                "description": "1.62 kHz, low-power mode only",
+                "name": "LP_1620",
+                "value": 8
+              },
+              {
+                "description": "5.376 kHz low-power / 1.344 kHz normal",
+                "name": "HZ_5376",
+                "value": 9
+              }
+            ],
+            "name": "ODR",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Low-power mode enable (8-bit data)",
+            "enum_values": [],
+            "name": "LPEN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Z-axis enable",
+            "enum_values": [],
+            "name": "ZEN",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Y-axis enable",
+            "enum_values": [],
+            "name": "YEN",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "X-axis enable",
+            "enum_values": [],
+            "name": "XEN",
+            "reset_value": 1
+          }
+        ],
+        "name": "CTRL_REG1",
+        "reset_value": 7,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 33,
+        "description": "High-pass filter configuration",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 2,
+            "description": "High-pass filter mode",
+            "enum_values": [],
+            "name": "HPM",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 2,
+            "description": "High-pass filter cutoff frequency",
+            "enum_values": [],
+            "name": "HPCF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Filtered data selection",
+            "enum_values": [],
+            "name": "FDS",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "High-pass filter enabled for click",
+            "enum_values": [],
+            "name": "HPCLICK",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "High-pass filter enabled for interrupt 2",
+            "enum_values": [],
+            "name": "HP_IA2",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "High-pass filter enabled for interrupt 1",
+            "enum_values": [],
+            "name": "HP_IA1",
+            "reset_value": 0
+          }
+        ],
+        "name": "CTRL_REG2",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 34,
+        "description": "INT1 pin routing",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Click interrupt on INT1",
+            "enum_values": [],
+            "name": "I1_CLICK",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "IA1 interrupt on INT1",
+            "enum_values": [],
+            "name": "I1_IA1",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "IA2 interrupt on INT1",
+            "enum_values": [],
+            "name": "I1_IA2",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Data ready on INT1",
+            "enum_values": [],
+            "name": "I1_ZYXDA",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "ADC data ready on INT1",
+            "enum_values": [],
+            "name": "I1_321DA",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "FIFO watermark on INT1",
+            "enum_values": [],
+            "name": "I1_WTM",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "FIFO overrun on INT1",
+            "enum_values": [],
+            "name": "I1_OVERRUN",
+            "reset_value": 0
+          }
+        ],
+        "name": "CTRL_REG3",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 35,
+        "description": "Scale, resolution and SPI mode",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Block data update. Set it, or the high and low bytes of a sample can come from different measurements.",
+            "enum_values": [],
+            "name": "BDU",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Big/little endian selection",
+            "enum_values": [],
+            "name": "BLE",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 2,
+            "description": "Full-scale selection",
+            "enum_values": [
+              {
+                "description": "+/-2 g (default)",
+                "name": "G_2",
+                "value": 0
+              },
+              {
+                "description": "+/-4 g",
+                "name": "G_4",
+                "value": 1
+              },
+              {
+                "description": "+/-8 g",
+                "name": "G_8",
+                "value": 2
+              },
+              {
+                "description": "+/-16 g",
+                "name": "G_16",
+                "value": 3
+              }
+            ],
+            "name": "FS",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "High-resolution output mode (12-bit)",
+            "enum_values": [],
+            "name": "HR",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 2,
+            "description": "Self-test enable",
+            "enum_values": [],
+            "name": "ST",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "SPI serial interface mode. 1 = 3-wire.",
+            "enum_values": [],
+            "name": "SIM",
+            "reset_value": 0
+          }
+        ],
+        "name": "CTRL_REG4",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 36,
+        "description": "Memory reboot, FIFO and interrupt latching",
+        "fields": [
+          {
+            "access": "w1p",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Reboot memory content; self-clearing",
+            "enum_values": [],
+            "name": "BOOT",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "FIFO enable",
+            "enum_values": [],
+            "name": "FIFO_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Latch interrupt request on INT1",
+            "enum_values": [],
+            "name": "LIR_INT1",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "4D detection enabled on INT1",
+            "enum_values": [],
+            "name": "D4D_INT1",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Latch interrupt request on INT2",
+            "enum_values": [],
+            "name": "LIR_INT2",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "4D detection enabled on INT2",
+            "enum_values": [],
+            "name": "D4D_INT2",
+            "reset_value": 0
+          }
+        ],
+        "name": "CTRL_REG5",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 37,
+        "description": "INT2 pin routing and interrupt polarity",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Click interrupt on INT2",
+            "enum_values": [],
+            "name": "I2_CLICK",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "IA1 interrupt on INT2",
+            "enum_values": [],
+            "name": "I2_IA1",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "IA2 interrupt on INT2",
+            "enum_values": [],
+            "name": "I2_IA2",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Boot status on INT2",
+            "enum_values": [],
+            "name": "I2_BOOT",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Activity interrupt on INT2",
+            "enum_values": [],
+            "name": "I2_ACT",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "0 = active high, 1 = active low",
+            "enum_values": [],
+            "name": "INT_POLARITY",
+            "reset_value": 0
+          }
+        ],
+        "name": "CTRL_REG6",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 38,
+        "description": "Reference value for interrupt generation",
+        "fields": [],
+        "name": "REFERENCE",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 39,
+        "description": "Acceleration data status",
+        "fields": [
+          {
+            "access": "ro",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "X, Y and Z data overrun",
+            "enum_values": [],
+            "name": "ZYXOR",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Z data overrun",
+            "enum_values": [],
+            "name": "ZOR",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Y data overrun",
+            "enum_values": [],
+            "name": "YOR",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "X data overrun",
+            "enum_values": [],
+            "name": "XOR_",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "X, Y and Z new data available",
+            "enum_values": [],
+            "name": "ZYXDA",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Z new data available",
+            "enum_values": [],
+            "name": "ZDA",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Y new data available",
+            "enum_values": [],
+            "name": "YDA",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "X new data available",
+            "enum_values": [],
+            "name": "XDA",
+            "reset_value": 0
+          }
+        ],
+        "name": "STATUS_REG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 40,
+        "description": "X-axis acceleration, low byte",
+        "fields": [],
+        "name": "OUT_X_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 41,
+        "description": "X-axis acceleration, high byte",
+        "fields": [],
+        "name": "OUT_X_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 42,
+        "description": "Y-axis acceleration, low byte",
+        "fields": [],
+        "name": "OUT_Y_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 43,
+        "description": "Y-axis acceleration, high byte",
+        "fields": [],
+        "name": "OUT_Y_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 44,
+        "description": "Z-axis acceleration, low byte",
+        "fields": [],
+        "name": "OUT_Z_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 45,
+        "description": "Z-axis acceleration, high byte",
+        "fields": [],
+        "name": "OUT_Z_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 46,
+        "description": "FIFO mode and threshold",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 2,
+            "description": "FIFO mode",
+            "enum_values": [
+              {
+                "description": "Bypass mode (default)",
+                "name": "BYPASS",
+                "value": 0
+              },
+              {
+                "description": "FIFO mode",
+                "name": "FIFO",
+                "value": 1
+              },
+              {
+                "description": "Stream mode",
+                "name": "STREAM",
+                "value": 2
+              },
+              {
+                "description": "Stream-to-FIFO mode",
+                "name": "STREAM_TO_FIFO",
+                "value": 3
+              }
+            ],
+            "name": "FM",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Trigger selection. 0 = INT1, 1 = INT2.",
+            "enum_values": [],
+            "name": "TR",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 5,
+            "description": "FIFO threshold",
+            "enum_values": [],
+            "name": "FTH",
+            "reset_value": 0
+          }
+        ],
+        "name": "FIFO_CTRL_REG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 47,
+        "description": "FIFO status",
+        "fields": [
+          {
+            "access": "ro",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Watermark level reached",
+            "enum_values": [],
+            "name": "WTM",
+            "reset_value": null
+          },
+          {
+            "access": "ro",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "FIFO overrun",
+            "enum_values": [],
+            "name": "OVRN_FIFO",
+            "reset_value": null
+          },
+          {
+            "access": "ro",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "FIFO is empty",
+            "enum_values": [],
+            "name": "EMPTY",
+            "reset_value": null
+          },
+          {
+            "access": "ro",
+            "bit_offset": 0,
+            "bit_width": 5,
+            "description": "Number of unread samples",
+            "enum_values": [],
+            "name": "FSS",
+            "reset_value": null
+          }
+        ],
+        "name": "FIFO_SRC_REG",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 48,
+        "description": "Interrupt 1 configuration",
+        "fields": [],
+        "name": "INT1_CFG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 49,
+        "description": "Interrupt 1 source. Cleared on read.",
+        "fields": [],
+        "name": "INT1_SRC",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 50,
+        "description": "Interrupt 1 threshold",
+        "fields": [],
+        "name": "INT1_THS",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 51,
+        "description": "Interrupt 1 duration",
+        "fields": [],
+        "name": "INT1_DURATION",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 52,
+        "description": "Interrupt 2 configuration",
+        "fields": [],
+        "name": "INT2_CFG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 53,
+        "description": "Interrupt 2 source. Cleared on read.",
+        "fields": [],
+        "name": "INT2_SRC",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 54,
+        "description": "Interrupt 2 threshold",
+        "fields": [],
+        "name": "INT2_THS",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 55,
+        "description": "Interrupt 2 duration",
+        "fields": [],
+        "name": "INT2_DURATION",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 56,
+        "description": "Click detection configuration",
+        "fields": [],
+        "name": "CLICK_CFG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 57,
+        "description": "Click detection source",
+        "fields": [],
+        "name": "CLICK_SRC",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 58,
+        "description": "Click threshold",
+        "fields": [],
+        "name": "CLICK_THS",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 59,
+        "description": "Click time limit",
+        "fields": [],
+        "name": "TIME_LIMIT",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 60,
+        "description": "Click time latency",
+        "fields": [],
+        "name": "TIME_LATENCY",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 61,
+        "description": "Click time window",
+        "fields": [],
+        "name": "TIME_WINDOW",
+        "reset_value": 0,
+        "size_bits": 8
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. Multi-byte reads require the MSB of the sub-address to be set for auto-increment; that is a bus-protocol detail rather than a register and is not modelled here. Check against the datasheet before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "ST LIS3DH datasheet (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}

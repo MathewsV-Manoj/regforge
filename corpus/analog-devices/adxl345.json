@@ -1,0 +1,1007 @@
+{
+  "device": {
+    "buses": [
+      "i2c",
+      "spi"
+    ],
+    "description": "3-axis MEMS accelerometer with tap, activity and free-fall detection",
+    "i2c_addresses": [
+      83,
+      29
+    ],
+    "manufacturer": "Analog Devices",
+    "part_number": "ADXL345",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "ro",
+        "address": 0,
+        "description": "Device ID. Always reads 0xE5.",
+        "fields": [],
+        "name": "DEVID",
+        "reset_value": 229,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 29,
+        "description": "Tap threshold, 62.5 mg per LSB",
+        "fields": [],
+        "name": "THRESH_TAP",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 30,
+        "description": "X-axis offset, two's complement, 15.6 mg per LSB",
+        "fields": [],
+        "name": "OFSX",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 31,
+        "description": "Y-axis offset, two's complement, 15.6 mg per LSB",
+        "fields": [],
+        "name": "OFSY",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 32,
+        "description": "Z-axis offset, two's complement, 15.6 mg per LSB",
+        "fields": [],
+        "name": "OFSZ",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 33,
+        "description": "Maximum tap duration, 625 us per LSB",
+        "fields": [],
+        "name": "DUR",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 34,
+        "description": "Tap latency, 1.25 ms per LSB",
+        "fields": [],
+        "name": "LATENT",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 35,
+        "description": "Double-tap window, 1.25 ms per LSB",
+        "fields": [],
+        "name": "WINDOW",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 36,
+        "description": "Activity threshold, 62.5 mg per LSB",
+        "fields": [],
+        "name": "THRESH_ACT",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 37,
+        "description": "Inactivity threshold, 62.5 mg per LSB",
+        "fields": [],
+        "name": "THRESH_INACT",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 38,
+        "description": "Inactivity time, 1 s per LSB",
+        "fields": [],
+        "name": "TIME_INACT",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 39,
+        "description": "Axis enables for activity and inactivity detection",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Activity: 0 = dc-coupled, 1 = ac-coupled",
+            "enum_values": [],
+            "name": "ACT_AC_DC",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Enable X for activity",
+            "enum_values": [],
+            "name": "ACT_X_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Enable Y for activity",
+            "enum_values": [],
+            "name": "ACT_Y_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Enable Z for activity",
+            "enum_values": [],
+            "name": "ACT_Z_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Inactivity: 0 = dc-coupled, 1 = ac-coupled",
+            "enum_values": [],
+            "name": "INACT_AC_DC",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Enable X for inactivity",
+            "enum_values": [],
+            "name": "INACT_X_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Enable Y for inactivity",
+            "enum_values": [],
+            "name": "INACT_Y_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Enable Z for inactivity",
+            "enum_values": [],
+            "name": "INACT_Z_EN",
+            "reset_value": 0
+          }
+        ],
+        "name": "ACT_INACT_CTL",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 40,
+        "description": "Free-fall threshold, 62.5 mg per LSB",
+        "fields": [],
+        "name": "THRESH_FF",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 41,
+        "description": "Free-fall time, 5 ms per LSB",
+        "fields": [],
+        "name": "TIME_FF",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 42,
+        "description": "Axis enables for tap detection",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Suppress double tap if a spike occurs during latency",
+            "enum_values": [],
+            "name": "SUPPRESS",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Enable X for tap",
+            "enum_values": [],
+            "name": "TAP_X_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Enable Y for tap",
+            "enum_values": [],
+            "name": "TAP_Y_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Enable Z for tap",
+            "enum_values": [],
+            "name": "TAP_Z_EN",
+            "reset_value": 0
+          }
+        ],
+        "name": "TAP_AXES",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 43,
+        "description": "Which axis was involved in the most recent event",
+        "fields": [
+          {
+            "access": "ro",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "X involved in activity",
+            "enum_values": [],
+            "name": "ACT_X_SRC",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Y involved in activity",
+            "enum_values": [],
+            "name": "ACT_Y_SRC",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Z involved in activity",
+            "enum_values": [],
+            "name": "ACT_Z_SRC",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Device is in sleep mode",
+            "enum_values": [],
+            "name": "ASLEEP",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "X involved in tap",
+            "enum_values": [],
+            "name": "TAP_X_SRC",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Y involved in tap",
+            "enum_values": [],
+            "name": "TAP_Y_SRC",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Z involved in tap",
+            "enum_values": [],
+            "name": "TAP_Z_SRC",
+            "reset_value": 0
+          }
+        ],
+        "name": "ACT_TAP_STATUS",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 44,
+        "description": "Output data rate and low-power mode",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Reduced power at the cost of higher noise",
+            "enum_values": [],
+            "name": "LOW_POWER",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Output data rate",
+            "enum_values": [
+              {
+                "description": "0.10 Hz",
+                "name": "HZ_0_10",
+                "value": 0
+              },
+              {
+                "description": "0.20 Hz",
+                "name": "HZ_0_20",
+                "value": 1
+              },
+              {
+                "description": "0.39 Hz",
+                "name": "HZ_0_39",
+                "value": 2
+              },
+              {
+                "description": "0.78 Hz",
+                "name": "HZ_0_78",
+                "value": 3
+              },
+              {
+                "description": "1.56 Hz",
+                "name": "HZ_1_56",
+                "value": 4
+              },
+              {
+                "description": "3.13 Hz",
+                "name": "HZ_3_13",
+                "value": 5
+              },
+              {
+                "description": "6.25 Hz",
+                "name": "HZ_6_25",
+                "value": 6
+              },
+              {
+                "description": "12.5 Hz",
+                "name": "HZ_12_5",
+                "value": 7
+              },
+              {
+                "description": "25 Hz",
+                "name": "HZ_25",
+                "value": 8
+              },
+              {
+                "description": "50 Hz",
+                "name": "HZ_50",
+                "value": 9
+              },
+              {
+                "description": "100 Hz (default)",
+                "name": "HZ_100",
+                "value": 10
+              },
+              {
+                "description": "200 Hz",
+                "name": "HZ_200",
+                "value": 11
+              },
+              {
+                "description": "400 Hz",
+                "name": "HZ_400",
+                "value": 12
+              },
+              {
+                "description": "800 Hz",
+                "name": "HZ_800",
+                "value": 13
+              },
+              {
+                "description": "1600 Hz",
+                "name": "HZ_1600",
+                "value": 14
+              },
+              {
+                "description": "3200 Hz",
+                "name": "HZ_3200",
+                "value": 15
+              }
+            ],
+            "name": "RATE",
+            "reset_value": 10
+          }
+        ],
+        "name": "BW_RATE",
+        "reset_value": 10,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 45,
+        "description": "Power-saving control. Measure is clear at reset, so the part boots in standby and produces no data until you set it.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Serially link activity and inactivity detection",
+            "enum_values": [],
+            "name": "LINK",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Enter sleep automatically on inactivity",
+            "enum_values": [],
+            "name": "AUTO_SLEEP",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "0 = standby, 1 = measurement. Set this to start.",
+            "enum_values": [],
+            "name": "MEASURE",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Put the part into sleep mode",
+            "enum_values": [],
+            "name": "SLEEP",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 2,
+            "description": "Reading rate in sleep mode",
+            "enum_values": [
+              {
+                "description": "8 Hz",
+                "name": "HZ_8",
+                "value": 0
+              },
+              {
+                "description": "4 Hz",
+                "name": "HZ_4",
+                "value": 1
+              },
+              {
+                "description": "2 Hz",
+                "name": "HZ_2",
+                "value": 2
+              },
+              {
+                "description": "1 Hz",
+                "name": "HZ_1",
+                "value": 3
+              }
+            ],
+            "name": "WAKEUP",
+            "reset_value": 0
+          }
+        ],
+        "name": "POWER_CTL",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 46,
+        "description": "Interrupt enables",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Data ready",
+            "enum_values": [],
+            "name": "DATA_READY",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Single tap",
+            "enum_values": [],
+            "name": "SINGLE_TAP",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Double tap",
+            "enum_values": [],
+            "name": "DOUBLE_TAP",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Activity",
+            "enum_values": [],
+            "name": "ACTIVITY",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Inactivity",
+            "enum_values": [],
+            "name": "INACTIVITY",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Free fall",
+            "enum_values": [],
+            "name": "FREE_FALL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "FIFO watermark",
+            "enum_values": [],
+            "name": "WATERMARK",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "FIFO overrun",
+            "enum_values": [],
+            "name": "OVERRUN",
+            "reset_value": 0
+          }
+        ],
+        "name": "INT_ENABLE",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 47,
+        "description": "Interrupt routing. 0 sends the event to INT1, 1 sends it to INT2.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Route data ready",
+            "enum_values": [],
+            "name": "DATA_READY",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Route single tap",
+            "enum_values": [],
+            "name": "SINGLE_TAP",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Route double tap",
+            "enum_values": [],
+            "name": "DOUBLE_TAP",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Route activity",
+            "enum_values": [],
+            "name": "ACTIVITY",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Route inactivity",
+            "enum_values": [],
+            "name": "INACTIVITY",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Route free fall",
+            "enum_values": [],
+            "name": "FREE_FALL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Route FIFO watermark",
+            "enum_values": [],
+            "name": "WATERMARK",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Route FIFO overrun",
+            "enum_values": [],
+            "name": "OVERRUN",
+            "reset_value": 0
+          }
+        ],
+        "name": "INT_MAP",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 48,
+        "description": "Which interrupts are asserted. Reading clears most of them.",
+        "fields": [
+          {
+            "access": "ro",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Data ready",
+            "enum_values": [],
+            "name": "DATA_READY",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Single tap",
+            "enum_values": [],
+            "name": "SINGLE_TAP",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Double tap",
+            "enum_values": [],
+            "name": "DOUBLE_TAP",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Activity",
+            "enum_values": [],
+            "name": "ACTIVITY",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Inactivity",
+            "enum_values": [],
+            "name": "INACTIVITY",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Free fall",
+            "enum_values": [],
+            "name": "FREE_FALL",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "FIFO watermark",
+            "enum_values": [],
+            "name": "WATERMARK",
+            "reset_value": 1
+          },
+          {
+            "access": "ro",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "FIFO overrun",
+            "enum_values": [],
+            "name": "OVERRUN",
+            "reset_value": 0
+          }
+        ],
+        "name": "INT_SOURCE",
+        "reset_value": 2,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 49,
+        "description": "Data presentation. FULL_RES changes how the 13-bit result is aligned, which is the usual cause of scaling that looks wrong by a factor of 2.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Apply a self-test force to the sensor",
+            "enum_values": [],
+            "name": "SELF_TEST",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "0 = 4-wire SPI, 1 = 3-wire SPI",
+            "enum_values": [],
+            "name": "SPI",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "0 = interrupts active high, 1 = active low",
+            "enum_values": [],
+            "name": "INT_INVERT",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "1 = full resolution, 4 mg per LSB at every range. 0 = fixed 10-bit.",
+            "enum_values": [],
+            "name": "FULL_RES",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "1 = left-justified (MSB) mode",
+            "enum_values": [],
+            "name": "JUSTIFY",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 2,
+            "description": "g range",
+            "enum_values": [
+              {
+                "description": "+/-2 g (default)",
+                "name": "G_2",
+                "value": 0
+              },
+              {
+                "description": "+/-4 g",
+                "name": "G_4",
+                "value": 1
+              },
+              {
+                "description": "+/-8 g",
+                "name": "G_8",
+                "value": 2
+              },
+              {
+                "description": "+/-16 g",
+                "name": "G_16",
+                "value": 3
+              }
+            ],
+            "name": "RANGE",
+            "reset_value": 0
+          }
+        ],
+        "name": "DATA_FORMAT",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 50,
+        "description": "X-axis measurement, low byte",
+        "fields": [],
+        "name": "DATAX0",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 51,
+        "description": "X-axis measurement, high byte",
+        "fields": [],
+        "name": "DATAX1",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 52,
+        "description": "Y-axis measurement, low byte",
+        "fields": [],
+        "name": "DATAY0",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 53,
+        "description": "Y-axis measurement, high byte",
+        "fields": [],
+        "name": "DATAY1",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 54,
+        "description": "Z-axis measurement, low byte",
+        "fields": [],
+        "name": "DATAZ0",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 55,
+        "description": "Z-axis measurement, high byte",
+        "fields": [],
+        "name": "DATAZ1",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 56,
+        "description": "FIFO mode and watermark",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 2,
+            "description": "FIFO mode",
+            "enum_values": [
+              {
+                "description": "FIFO bypassed (default)",
+                "name": "BYPASS",
+                "value": 0
+              },
+              {
+                "description": "Collect until full, then stop",
+                "name": "FIFO",
+                "value": 1
+              },
+              {
+                "description": "Keep the most recent 32 samples",
+                "name": "STREAM",
+                "value": 2
+              },
+              {
+                "description": "Hold samples around a trigger event",
+                "name": "TRIGGER",
+                "value": 3
+              }
+            ],
+            "name": "FIFO_MODE",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "0 = trigger on INT1, 1 = trigger on INT2",
+            "enum_values": [],
+            "name": "TRIGGER",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 5,
+            "description": "Watermark sample count",
+            "enum_values": [],
+            "name": "SAMPLES",
+            "reset_value": 0
+          }
+        ],
+        "name": "FIFO_CTL",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 57,
+        "description": "FIFO fill level",
+        "fields": [
+          {
+            "access": "ro",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "A trigger event has occurred",
+            "enum_values": [],
+            "name": "FIFO_TRIG",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 0,
+            "bit_width": 6,
+            "description": "Number of samples in the FIFO",
+            "enum_values": [],
+            "name": "ENTRIES",
+            "reset_value": 0
+          }
+        ],
+        "name": "FIFO_STATUS",
+        "reset_value": 0,
+        "size_bits": 8
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. Check against Analog Devices ADXL345 datasheet before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "Analog Devices ADXL345 datasheet (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}

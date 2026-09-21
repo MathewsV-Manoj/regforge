@@ -128,7 +128,14 @@ def esc(s) -> str:
     return html.escape(str(s if s is not None else ""))
 
 
+BASE_URL = "https://mathewsv-manoj.github.io/regforge/"
+
+
 def page(title: str, description: str, body: str, *, canonical: str, jsonld: dict | None = None) -> str:
+    # Canonical and og:url must be absolute. Relative values here are silently
+    # ignored by crawlers, which is the difference between the part pages being
+    # indexed as one canonical set and being treated as duplicates.
+    abs_url = BASE_URL + canonical.lstrip("/")
     ld = (
         f'<script type="application/ld+json">{json.dumps(jsonld, separators=(",", ":"))}</script>'
         if jsonld
@@ -141,11 +148,11 @@ def page(title: str, description: str, body: str, *, canonical: str, jsonld: dic
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description)}">
-<link rel="canonical" href="{esc(canonical)}">
+<link rel="canonical" href="{esc(abs_url)}">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="{esc(canonical)}">
+<meta property="og:url" content="{esc(abs_url)}">
 <meta name="twitter:card" content="summary">
 <style>{CSS}</style>
 {ld}
@@ -183,8 +190,21 @@ def hexv(v, bits=8) -> str:
     return f"0x{v:0{max(2, (bits + 3) // 4)}X}"
 
 
-def render_part(rec: DeviceRecord) -> tuple[str, str, str]:
+def pick_related(rec: DeviceRecord, all_records: list[DeviceRecord], limit: int = 3) -> list[DeviceRecord]:
+    """Same manufacturer first, then anything else. Internal links help both
+    crawlers and the reader who is choosing between two similar parts."""
+    me = slug(rec.device.part_number)
+    same_mf = [r for r in all_records
+               if slug(r.device.part_number) != me
+               and slug(r.device.manufacturer) == slug(rec.device.manufacturer)]
+    others = [r for r in all_records
+              if slug(r.device.part_number) != me and r not in same_mf]
+    return (same_mf + others)[:limit]
+
+
+def render_part(rec: DeviceRecord, related: list[DeviceRecord] | None = None) -> tuple[str, str, str]:
     d, p = rec.device, rec.provenance
+    related = related or []
     pn = d.part_number
     addr_bits = d.register_address_bits
 
@@ -301,6 +321,53 @@ def render_part(rec: DeviceRecord) -> tuple[str, str, str]:
             parts.append("</div></details>")
         parts.append("</div>")
 
+    # A real excerpt of the generated header. This is what somebody searching
+    # for "BME280_CTRL_MEAS" or "ADS1115 PGA mask" is actually trying to find,
+    # and it is the most direct demonstration of what the tool produces.
+    # The richest register, not the first one: it is the most representative
+    # sample of the output and the one people actually search for.
+    example = max(d.registers, key=lambda r: len(r.fields), default=None)
+    if example is not None and not example.fields:
+        example = None
+    if example is not None:
+        from regforge.codegen.c_header import generate_regs_header
+
+        full = generate_regs_header(rec).splitlines()
+        marker = f"/* {example.name} @"
+        try:
+            start = next(i for i, ln in enumerate(full) if ln.startswith(marker))
+            start = max(0, start - 1)
+            end = start
+            blanks = 0
+            while end < len(full) and blanks < 2 and (end - start) < 42:
+                end += 1
+                if not full[end - 1].strip():
+                    blanks += 1
+                else:
+                    blanks = 0
+            excerpt = "\n".join(full[start:end]).rstrip()
+            parts.append("<h2>Generated C header</h2>")
+            parts.append(
+                f"<p>What <code>regforge gen {esc(pn)}</code> writes for "
+                f"<code>{esc(example.name)}</code>:</p>"
+            )
+            parts.append(f"<pre><code>{esc(excerpt)}</code></pre>")
+        except StopIteration:
+            pass
+
+    if related:
+        parts.append("<h2>Related parts</h2>")
+        parts.append('<div class="grid">')
+        for other in related:
+            od = other.device
+            parts.append(
+                f'<a class="card" href="{slug(od.part_number)}.html">'
+                f'<div class="pn">{esc(od.part_number)}</div>'
+                f'<div class="mf">{esc(od.manufacturer)}</div>'
+                f'<div class="st">{len(od.registers)} registers</div></a>'
+            )
+        parts.append("</div>")
+
     parts.append("<h2>Source</h2>")
     src = p.source_filename or "unknown"
     how = "machine-extracted" if p.extraction_model else "hand-transcribed"
@@ -339,13 +406,14 @@ def render_index(records: list[DeviceRecord]) -> str:
     total_regs = sum(len(r.device.registers) for r in records)
 
     body = [
-        "<h1>Register maps that generate their own C headers</h1>",
-        '<p class="lede">Every part below is a complete, machine-validated register map. '
-        "Read it here, or install it as a C header in one command.</p>",
+        "<h1>Register maps for I²C and SPI chips</h1>",
+        '<p class="lede">Every address, bitfield and reset value &mdash; and the same data '
+        "as a C header, in one command.</p>",
         "<pre><code>pip install regforge\nregforge gen BME280 --out ./src --driver --tests</code></pre>",
         '<div class="meta">'
         f'<span class="chip">{len(records)} parts</span>'
         f'<span class="chip">{total_regs} registers</span>'
+        '<span class="chip">no API key needed</span>'
         '<span class="chip">Apache-2.0</span>'
         "</div>",
         "<h2>Parts</h2>",
@@ -363,22 +431,19 @@ def render_index(records: list[DeviceRecord]) -> str:
     body.append("</div>")
 
     body += [
-        "<h2>Why this exists</h2>",
-        "<p>Bringing up an unfamiliar chip means retyping register tables out of a "
-        "180-page PDF into a header file, and getting every bit offset right by hand. "
-        "<code>[7:5]</code> means shift 5 and width 3; get it backwards and you lose a day "
-        "on a logic analyser, because nothing tells you.</p>",
-        "<p>RegForge reads those pages, validates the result deterministically, and "
-        "generates the header plus a driver skeleton. Crucially it also emits compile-time "
-        "assertions derived from the same map, so a wrong mask is a <em>build failure</em> "
-        "naming the field &mdash; not a silent hardware bug.</p>",
+        "<h2>The problem</h2>",
+        "<p>Bringing up a new chip means retyping register tables out of a PDF into a header "
+        "by hand. <code>[7:5]</code> means shift 5, width 3. Get it backwards and nothing "
+        "tells you &mdash; you find out on a logic analyser, a day later.</p>",
+        "<h2>The solution</h2>",
+        "<p>Read the map here, or generate it as C. The generated header ships with "
+        "compile-time assertions, so a wrong mask is a <strong>build failure naming the "
+        "field</strong> instead of a silent hardware bug.</p>",
         "<h2>Missing a part?</h2>",
-        "<p>Point it at the datasheet:</p>",
         "<pre><code>regforge scan datasheet.pdf          # free, shows which pages it will read\n"
         "regforge extract datasheet.pdf --part XYZ</code></pre>",
-        f'<p>Then <a href="{GITHUB}/blob/main/CONTRIBUTING.md">contribute it back</a> and '
-        "it becomes free and instant for everyone after you. That is the whole idea: each "
-        "part gets paid for once.</p>",
+        f'<p><a href="{GITHUB}/blob/main/CONTRIBUTING.md">Contribute it back</a> and it is '
+        "free for everyone after you. Each part gets paid for once.</p>",
     ]
 
     jsonld = {
@@ -416,7 +481,7 @@ def main(argv=None) -> int:
 
     urls = ["index.html"]
     for rec in records:
-        _, _, doc = render_part(rec)
+        _, _, doc = render_part(rec, pick_related(rec, records))
         name = f"parts/{slug(rec.device.part_number)}.html"
         (out / name).write_text(doc, encoding="utf-8")
         urls.append(name)
@@ -427,7 +492,7 @@ def main(argv=None) -> int:
 
     # Sitemap and robots, so crawlers find every part page.
     today = date.today().isoformat()
-    base = "https://mathewsv-manoj.github.io/regforge/"
+    base = BASE_URL
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u in urls:
         sm.append(f"<url><loc>{base}{u}</loc><lastmod>{today}</lastmod></url>")

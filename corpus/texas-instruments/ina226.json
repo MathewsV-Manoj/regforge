@@ -1,0 +1,446 @@
+{
+  "device": {
+    "buses": [
+      "i2c"
+    ],
+    "description": "Bidirectional current and power monitor with alert and I2C",
+    "i2c_addresses": [
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79
+    ],
+    "manufacturer": "Texas Instruments",
+    "part_number": "INA226",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "rw",
+        "address": 0,
+        "description": "Averaging, conversion times and operating mode",
+        "fields": [
+          {
+            "access": "w1p",
+            "bit_offset": 15,
+            "bit_width": 1,
+            "description": "Write 1 to reset every register to its default; self-clearing",
+            "enum_values": [],
+            "name": "RST",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 9,
+            "bit_width": 3,
+            "description": "Averaging mode",
+            "enum_values": [
+              {
+                "description": "1 sample (default)",
+                "name": "SAMPLES_1",
+                "value": 0
+              },
+              {
+                "description": "4 samples averaged",
+                "name": "SAMPLES_4",
+                "value": 1
+              },
+              {
+                "description": "16 samples averaged",
+                "name": "SAMPLES_16",
+                "value": 2
+              },
+              {
+                "description": "64 samples averaged",
+                "name": "SAMPLES_64",
+                "value": 3
+              },
+              {
+                "description": "128 samples averaged",
+                "name": "SAMPLES_128",
+                "value": 4
+              },
+              {
+                "description": "256 samples averaged",
+                "name": "SAMPLES_256",
+                "value": 5
+              },
+              {
+                "description": "512 samples averaged",
+                "name": "SAMPLES_512",
+                "value": 6
+              },
+              {
+                "description": "1024 samples averaged",
+                "name": "SAMPLES_1024",
+                "value": 7
+              }
+            ],
+            "name": "AVG",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 3,
+            "description": "Bus voltage conversion time",
+            "enum_values": [
+              {
+                "description": "140 us",
+                "name": "US_140",
+                "value": 0
+              },
+              {
+                "description": "204 us",
+                "name": "US_204",
+                "value": 1
+              },
+              {
+                "description": "332 us",
+                "name": "US_332",
+                "value": 2
+              },
+              {
+                "description": "588 us",
+                "name": "US_588",
+                "value": 3
+              },
+              {
+                "description": "1.1 ms (default)",
+                "name": "US_1100",
+                "value": 4
+              },
+              {
+                "description": "2.116 ms",
+                "name": "US_2116",
+                "value": 5
+              },
+              {
+                "description": "4.156 ms",
+                "name": "US_4156",
+                "value": 6
+              },
+              {
+                "description": "8.244 ms",
+                "name": "US_8244",
+                "value": 7
+              }
+            ],
+            "name": "VBUSCT",
+            "reset_value": 4
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 3,
+            "description": "Shunt voltage conversion time",
+            "enum_values": [
+              {
+                "description": "140 us",
+                "name": "US_140",
+                "value": 0
+              },
+              {
+                "description": "204 us",
+                "name": "US_204",
+                "value": 1
+              },
+              {
+                "description": "332 us",
+                "name": "US_332",
+                "value": 2
+              },
+              {
+                "description": "588 us",
+                "name": "US_588",
+                "value": 3
+              },
+              {
+                "description": "1.1 ms (default)",
+                "name": "US_1100",
+                "value": 4
+              },
+              {
+                "description": "2.116 ms",
+                "name": "US_2116",
+                "value": 5
+              },
+              {
+                "description": "4.156 ms",
+                "name": "US_4156",
+                "value": 6
+              },
+              {
+                "description": "8.244 ms",
+                "name": "US_8244",
+                "value": 7
+              }
+            ],
+            "name": "VSHCT",
+            "reset_value": 4
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 3,
+            "description": "Operating mode",
+            "enum_values": [
+              {
+                "description": "Power down",
+                "name": "POWER_DOWN",
+                "value": 0
+              },
+              {
+                "description": "Shunt voltage, triggered",
+                "name": "SHUNT_TRIGGERED",
+                "value": 1
+              },
+              {
+                "description": "Bus voltage, triggered",
+                "name": "BUS_TRIGGERED",
+                "value": 2
+              },
+              {
+                "description": "Shunt and bus, triggered",
+                "name": "SHUNT_BUS_TRIGGERED",
+                "value": 3
+              },
+              {
+                "description": "Power down (alternate encoding)",
+                "name": "POWER_DOWN_ALT",
+                "value": 4
+              },
+              {
+                "description": "Shunt voltage, continuous",
+                "name": "SHUNT_CONTINUOUS",
+                "value": 5
+              },
+              {
+                "description": "Bus voltage, continuous",
+                "name": "BUS_CONTINUOUS",
+                "value": 6
+              },
+              {
+                "description": "Shunt and bus, continuous (default)",
+                "name": "SHUNT_BUS_CONTINUOUS",
+                "value": 7
+              }
+            ],
+            "name": "MODE",
+            "reset_value": 7
+          }
+        ],
+        "name": "CONFIG",
+        "reset_value": 16679,
+        "size_bits": 16
+      },
+      {
+        "access": "ro",
+        "address": 1,
+        "description": "Measured shunt voltage, two's complement, 2.5 uV per LSB",
+        "fields": [],
+        "name": "SHUNT_VOLTAGE",
+        "reset_value": null,
+        "size_bits": 16
+      },
+      {
+        "access": "ro",
+        "address": 2,
+        "description": "Measured bus voltage, 1.25 mV per LSB",
+        "fields": [],
+        "name": "BUS_VOLTAGE",
+        "reset_value": null,
+        "size_bits": 16
+      },
+      {
+        "access": "ro",
+        "address": 3,
+        "description": "Calculated power. Reads zero until CALIBRATION has been written.",
+        "fields": [],
+        "name": "POWER",
+        "reset_value": 0,
+        "size_bits": 16
+      },
+      {
+        "access": "ro",
+        "address": 4,
+        "description": "Calculated current, two's complement. Reads zero until CALIBRATION has been written.",
+        "fields": [],
+        "name": "CURRENT",
+        "reset_value": 0,
+        "size_bits": 16
+      },
+      {
+        "access": "rw",
+        "address": 5,
+        "description": "Current and power scaling. Set from the shunt resistance and the maximum expected current.",
+        "fields": [],
+        "name": "CALIBRATION",
+        "reset_value": 0,
+        "size_bits": 16
+      },
+      {
+        "access": "rw",
+        "address": 6,
+        "description": "Alert source selection and status flags",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 15,
+            "bit_width": 1,
+            "description": "Alert on shunt voltage over limit",
+            "enum_values": [],
+            "name": "SOL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 14,
+            "bit_width": 1,
+            "description": "Alert on shunt voltage under limit",
+            "enum_values": [],
+            "name": "SUL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 13,
+            "bit_width": 1,
+            "description": "Alert on bus voltage over limit",
+            "enum_values": [],
+            "name": "BOL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 12,
+            "bit_width": 1,
+            "description": "Alert on bus voltage under limit",
+            "enum_values": [],
+            "name": "BUL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 11,
+            "bit_width": 1,
+            "description": "Alert on power over limit",
+            "enum_values": [],
+            "name": "POL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 10,
+            "bit_width": 1,
+            "description": "Alert on conversion ready",
+            "enum_values": [],
+            "name": "CNVR",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Alert function flag",
+            "enum_values": [],
+            "name": "AFF",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Conversion ready flag",
+            "enum_values": [],
+            "name": "CVRF",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Math overflow flag",
+            "enum_values": [],
+            "name": "OVF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Alert polarity. 0 = active low (default).",
+            "enum_values": [],
+            "name": "APOL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Alert latch enable",
+            "enum_values": [],
+            "name": "LEN",
+            "reset_value": 0
+          }
+        ],
+        "name": "MASK_ENABLE",
+        "reset_value": 0,
+        "size_bits": 16
+      },
+      {
+        "access": "rw",
+        "address": 7,
+        "description": "Threshold compared against whichever alert source MASK_ENABLE selects",
+        "fields": [],
+        "name": "ALERT_LIMIT",
+        "reset_value": 0,
+        "size_bits": 16
+      },
+      {
+        "access": "ro",
+        "address": 254,
+        "description": "Manufacturer ID. Reads 0x5449, which is 'TI' in ASCII.",
+        "fields": [],
+        "name": "MANUFACTURER_ID",
+        "reset_value": 21577,
+        "size_bits": 16
+      },
+      {
+        "access": "ro",
+        "address": 255,
+        "description": "Die ID and revision. Reads 0x2260.",
+        "fields": [],
+        "name": "DIE_ID",
+        "reset_value": 8800,
+        "size_bits": 16
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. Check against TI INA226 datasheet (SBOS547) before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "TI INA226 datasheet (SBOS547) (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}

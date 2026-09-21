@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 
-**[Browse the register maps →](https://mathewsv-manoj.github.io/regforge/)**  ·  7 parts, 100 registers, free to read
+**[Browse the register maps →](https://mathewsv-manoj.github.io/regforge/)**  ·  13 parts, 275 registers, free to read
 
 **Turn a datasheet into a verified register map and driver code.**
 
@@ -74,8 +74,8 @@ pip install regforge
 regforge gen BME280 --out ./src --driver    # no API call, no cost
 ```
 
-Parts included today: **ADS1115, BME280, BMP280, DS3231, INA219, MCP23017,
-MPU6050** — 100 registers. Anything you extract yourself joins your own layer
+Parts included today: **ADS1115, ADXL345, BME280, BMP280, DS1307, DS3231, INA219,
+INA226, LIS3DH, MCP23008, MCP23017, MPU6050, PCA9685** — 275 registers. Anything you extract yourself joins your own layer
 of the corpus, and your copy of a part always wins over the shipped one.
 
 **3. The generated bit math ships with its own proof.** A generated header

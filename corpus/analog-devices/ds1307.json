@@ -1,0 +1,314 @@
+{
+  "device": {
+    "buses": [
+      "i2c"
+    ],
+    "description": "I2C real-time clock with 56 bytes of battery-backed NVRAM",
+    "i2c_addresses": [
+      104
+    ],
+    "manufacturer": "Analog Devices",
+    "part_number": "DS1307",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "rw",
+        "address": 0,
+        "description": "Seconds in BCD, plus the clock halt bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Clock halt. 1 stops the oscillator. Set on a new part, so clear it before the clock will run.",
+            "enum_values": [],
+            "name": "CH",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 3,
+            "description": "Tens of seconds, 0-5",
+            "enum_values": [],
+            "name": "SECONDS_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of seconds, 0-9",
+            "enum_values": [],
+            "name": "SECONDS_1",
+            "reset_value": null
+          }
+        ],
+        "name": "SECONDS",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 1,
+        "description": "Minutes in BCD, 00-59",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 3,
+            "description": "Tens of minutes, 0-5",
+            "enum_values": [],
+            "name": "MINUTES_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of minutes, 0-9",
+            "enum_values": [],
+            "name": "MINUTES_1",
+            "reset_value": null
+          }
+        ],
+        "name": "MINUTES",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 2,
+        "description": "Hours in BCD. Layout depends on the 12/24 bit.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "0 = 24-hour mode, 1 = 12-hour mode",
+            "enum_values": [
+              {
+                "description": "24-hour format",
+                "name": "MODE_24H",
+                "value": 0
+              },
+              {
+                "description": "12-hour format, bit 5 is AM/PM",
+                "name": "MODE_12H",
+                "value": 1
+              }
+            ],
+            "name": "MODE_12_24",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "In 12-hour mode: 0 = AM, 1 = PM. In 24-hour mode: the 20-hour bit.",
+            "enum_values": [],
+            "name": "AM_PM_HOUR_20",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "The 10-hour bit",
+            "enum_values": [],
+            "name": "HOURS_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of hours, 0-9",
+            "enum_values": [],
+            "name": "HOURS_1",
+            "reset_value": null
+          }
+        ],
+        "name": "HOURS",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 3,
+        "description": "Day of week, 1-7, defined by the user",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 3,
+            "description": "Day of week, 1-7",
+            "enum_values": [],
+            "name": "DAY",
+            "reset_value": null
+          }
+        ],
+        "name": "DAY",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 4,
+        "description": "Day of month in BCD, 01-31",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 2,
+            "description": "Tens of the date, 0-3",
+            "enum_values": [],
+            "name": "DATE_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of the date, 0-9",
+            "enum_values": [],
+            "name": "DATE_1",
+            "reset_value": null
+          }
+        ],
+        "name": "DATE",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 5,
+        "description": "Month in BCD, 01-12",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Tens of the month",
+            "enum_values": [],
+            "name": "MONTH_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of the month, 0-9",
+            "enum_values": [],
+            "name": "MONTH_1",
+            "reset_value": null
+          }
+        ],
+        "name": "MONTH",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 6,
+        "description": "Year within the century in BCD, 00-99",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 4,
+            "description": "Tens of the year",
+            "enum_values": [],
+            "name": "YEAR_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of the year",
+            "enum_values": [],
+            "name": "YEAR_1",
+            "reset_value": null
+          }
+        ],
+        "name": "YEAR",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 7,
+        "description": "Square-wave output control",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Output level on SQW/OUT when SQWE is 0",
+            "enum_values": [],
+            "name": "OUT",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Square-wave enable",
+            "enum_values": [],
+            "name": "SQWE",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 2,
+            "description": "Square-wave rate select",
+            "enum_values": [
+              {
+                "description": "1 Hz",
+                "name": "HZ_1",
+                "value": 0
+              },
+              {
+                "description": "4.096 kHz",
+                "name": "KHZ_4_096",
+                "value": 1
+              },
+              {
+                "description": "8.192 kHz",
+                "name": "KHZ_8_192",
+                "value": 2
+              },
+              {
+                "description": "32.768 kHz (default)",
+                "name": "KHZ_32_768",
+                "value": 3
+              }
+            ],
+            "name": "RS",
+            "reset_value": 3
+          }
+        ],
+        "name": "CONTROL",
+        "reset_value": 3,
+        "size_bits": 8
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. Timekeeping registers carry no reset value because the datasheet states none -- they hold whatever the backup battery preserved. The 56 bytes of NVRAM at 0x08-0x3F are plain memory rather than registers and are not modelled. Check against the datasheet before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "Maxim/ADI DS1307 datasheet (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}

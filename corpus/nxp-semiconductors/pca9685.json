@@ -1,0 +1,1532 @@
+{
+  "device": {
+    "buses": [
+      "i2c"
+    ],
+    "description": "16-channel 12-bit PWM LED and servo controller with I2C",
+    "i2c_addresses": [
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127
+    ],
+    "manufacturer": "NXP Semiconductors",
+    "part_number": "PCA9685",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "rw",
+        "address": 0,
+        "description": "Mode register 1. Note the reset value: SLEEP is set, so the internal oscillator is off and no PWM is produced until you clear it.",
+        "fields": [
+          {
+            "access": "rw1c",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Reads 1 when a restart is required; write 1 to clear",
+            "enum_values": [],
+            "name": "RESTART",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Use an external clock. Sticky until power cycle or SWRST.",
+            "enum_values": [],
+            "name": "EXTCLK",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Register auto-increment enable",
+            "enum_values": [],
+            "name": "AI",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Low-power mode, oscillator off. Set at reset.",
+            "enum_values": [],
+            "name": "SLEEP",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Respond to I2C subaddress 1",
+            "enum_values": [],
+            "name": "SUB1",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Respond to I2C subaddress 2",
+            "enum_values": [],
+            "name": "SUB2",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Respond to I2C subaddress 3",
+            "enum_values": [],
+            "name": "SUB3",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Respond to the LED All Call address",
+            "enum_values": [],
+            "name": "ALLCALL",
+            "reset_value": 1
+          }
+        ],
+        "name": "MODE1",
+        "reset_value": 17,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 1,
+        "description": "Mode register 2: output drive and inversion",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Invert the output logic state",
+            "enum_values": [],
+            "name": "INVRT",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "0 = outputs change on STOP, 1 = on ACK",
+            "enum_values": [],
+            "name": "OCH",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "0 = open drain, 1 = totem pole",
+            "enum_values": [],
+            "name": "OUTDRV",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 2,
+            "description": "Output state when OE is high",
+            "enum_values": [
+              {
+                "description": "Outputs go low",
+                "name": "LOW",
+                "value": 0
+              },
+              {
+                "description": "High if OUTDRV=1, otherwise high-impedance",
+                "name": "OUTDRV_DEPENDENT",
+                "value": 1
+              },
+              {
+                "description": "Outputs go high-impedance",
+                "name": "HIGH_Z",
+                "value": 2
+              }
+            ],
+            "name": "OUTNE",
+            "reset_value": 0
+          }
+        ],
+        "name": "MODE2",
+        "reset_value": 4,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 2,
+        "description": "I2C subaddress 1",
+        "fields": [],
+        "name": "SUBADR1",
+        "reset_value": 226,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 3,
+        "description": "I2C subaddress 2",
+        "fields": [],
+        "name": "SUBADR2",
+        "reset_value": 228,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 4,
+        "description": "I2C subaddress 3",
+        "fields": [],
+        "name": "SUBADR3",
+        "reset_value": 232,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 5,
+        "description": "LED All Call I2C address",
+        "fields": [],
+        "name": "ALLCALLADR",
+        "reset_value": 224,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 6,
+        "description": "Channel 0 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED0_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 7,
+        "description": "Channel 0 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED0_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 8,
+        "description": "Channel 0 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED0_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 9,
+        "description": "Channel 0 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED0_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 10,
+        "description": "Channel 1 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED1_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 11,
+        "description": "Channel 1 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED1_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 12,
+        "description": "Channel 1 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED1_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 13,
+        "description": "Channel 1 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED1_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 14,
+        "description": "Channel 2 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED2_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 15,
+        "description": "Channel 2 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED2_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 16,
+        "description": "Channel 2 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED2_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 17,
+        "description": "Channel 2 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED2_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 18,
+        "description": "Channel 3 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED3_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 19,
+        "description": "Channel 3 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED3_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 20,
+        "description": "Channel 3 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED3_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 21,
+        "description": "Channel 3 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED3_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 22,
+        "description": "Channel 4 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED4_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 23,
+        "description": "Channel 4 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED4_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 24,
+        "description": "Channel 4 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED4_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 25,
+        "description": "Channel 4 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED4_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 26,
+        "description": "Channel 5 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED5_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 27,
+        "description": "Channel 5 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED5_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 28,
+        "description": "Channel 5 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED5_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 29,
+        "description": "Channel 5 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED5_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 30,
+        "description": "Channel 6 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED6_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 31,
+        "description": "Channel 6 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED6_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 32,
+        "description": "Channel 6 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED6_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 33,
+        "description": "Channel 6 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED6_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 34,
+        "description": "Channel 7 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED7_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 35,
+        "description": "Channel 7 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED7_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 36,
+        "description": "Channel 7 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED7_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 37,
+        "description": "Channel 7 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED7_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 38,
+        "description": "Channel 8 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED8_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 39,
+        "description": "Channel 8 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED8_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 40,
+        "description": "Channel 8 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED8_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 41,
+        "description": "Channel 8 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED8_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 42,
+        "description": "Channel 9 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED9_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 43,
+        "description": "Channel 9 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED9_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 44,
+        "description": "Channel 9 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED9_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 45,
+        "description": "Channel 9 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED9_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 46,
+        "description": "Channel 10 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED10_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 47,
+        "description": "Channel 10 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED10_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 48,
+        "description": "Channel 10 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED10_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 49,
+        "description": "Channel 10 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED10_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 50,
+        "description": "Channel 11 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED11_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 51,
+        "description": "Channel 11 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED11_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 52,
+        "description": "Channel 11 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED11_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 53,
+        "description": "Channel 11 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED11_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 54,
+        "description": "Channel 12 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED12_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 55,
+        "description": "Channel 12 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED12_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 56,
+        "description": "Channel 12 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED12_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 57,
+        "description": "Channel 12 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED12_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 58,
+        "description": "Channel 13 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED13_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 59,
+        "description": "Channel 13 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED13_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 60,
+        "description": "Channel 13 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED13_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 61,
+        "description": "Channel 13 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED13_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 62,
+        "description": "Channel 14 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED14_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 63,
+        "description": "Channel 14 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED14_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 64,
+        "description": "Channel 14 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED14_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 65,
+        "description": "Channel 14 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED14_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 66,
+        "description": "Channel 15 turn-on count, bits [7:0]",
+        "fields": [],
+        "name": "LED15_ON_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 67,
+        "description": "Channel 15 turn-on count bits [11:8], plus the full-ON bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-on count, bits [11:8]",
+            "enum_values": [],
+            "name": "ON_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED15_ON_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 68,
+        "description": "Channel 15 turn-off count, bits [7:0]",
+        "fields": [],
+        "name": "LED15_OFF_L",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 69,
+        "description": "Channel 15 turn-off count bits [11:8], plus the full-OFF bit",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive the output permanently low. Takes priority over FULL_ON.",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Turn-off count, bits [11:8]",
+            "enum_values": [],
+            "name": "OFF_COUNT_H",
+            "reset_value": 0
+          }
+        ],
+        "name": "LED15_OFF_H",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "wo",
+        "address": 250,
+        "description": "Turn-on count for all channels, bits [7:0]",
+        "fields": [],
+        "name": "ALL_LED_ON_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "wo",
+        "address": 251,
+        "description": "Turn-on count for all channels, bits [11:8] and full-ON",
+        "fields": [
+          {
+            "access": "wo",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive all outputs permanently high",
+            "enum_values": [],
+            "name": "FULL_ON",
+            "reset_value": null
+          }
+        ],
+        "name": "ALL_LED_ON_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "wo",
+        "address": 252,
+        "description": "Turn-off count for all channels, bits [7:0]",
+        "fields": [],
+        "name": "ALL_LED_OFF_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "wo",
+        "address": 253,
+        "description": "Turn-off count for all channels, bits [11:8] and full-OFF",
+        "fields": [
+          {
+            "access": "wo",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Drive all outputs permanently low",
+            "enum_values": [],
+            "name": "FULL_OFF",
+            "reset_value": null
+          }
+        ],
+        "name": "ALL_LED_OFF_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 254,
+        "description": "PWM frequency prescaler. Writable only while MODE1.SLEEP is set. prescale = round(osc_clock / (4096 * pwm_freq)) - 1; the 0x1E default is 200 Hz with the internal 25 MHz oscillator.",
+        "fields": [],
+        "name": "PRESCALE",
+        "reset_value": 30,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 255,
+        "description": "Factory test mode. Do not write.",
+        "fields": [],
+        "name": "TESTMODE",
+        "reset_value": null,
+        "size_bits": 8
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. The 64 per-channel LED registers are generated programmatically from the documented 4-per-channel layout starting at 0x06. Check against the datasheet before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "NXP PCA9685 datasheet (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}
