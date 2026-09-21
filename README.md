@@ -4,6 +4,8 @@
 [![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 
+**[Browse the register maps →](https://mathewsv-manoj.github.io/regforge/)**  ·  7 parts, 100 registers, free to read
+
 **Turn a datasheet into a verified register map and driver code.**
 
 You know the afternoon. A new sensor lands on your desk, the datasheet is 180
