@@ -21,11 +21,9 @@ extracted from pages 24-31
   TOTAL                                                              $0.1336
 
 BME280 (Bosch Sensortec)
-  registers: 14   bit coverage: 71%
+  registers: 14   bit coverage: 62%
 
-  [warning] UNDOCUMENTED_BITS      register STATUS: 6 of 8 bits have no named field
-
-  0 error(s), 1 warning(s), 3 note(s)   (use --verbose to see notes)
+  0 error(s), 0 warning(s), 21 note(s)   (use --verbose to see notes)
   status: PASS
 
 saved -> corpus/bosch-sensortec/bme280.json
@@ -35,11 +33,15 @@ generated:
   src/bme280.c
 ```
 
+Bit coverage counts only registers that document bitfields, so the BME280's
+eight opaque ADC output registers do not drag a complete extraction down to
+18%. The `NO_FIELDS` notes are where a genuinely missed register map shows up.
+
 ---
 
 ## Why this is not just "ask an LLM to read my datasheet"
 
-Three reasons, and they are the whole product.
+Four reasons, and they are the whole product.
 
 **1. Bit offsets get checked, not trusted.** Every extracted map goes through a
 deterministic validator before a single line of C is emitted. Overlapping
@@ -195,8 +197,9 @@ map against the datasheet, say so:
 regforge verify BME280 --by "Mathews V Manoj" --notes "checked against DS002 rev 1.6"
 ```
 
-Verified entries say so in the generated file's banner. Unverified ones say
-`MACHINE-EXTRACTED, NOT VERIFIED` in the same place, where you cannot miss it.
+Verified entries say so in the generated file's banner. Unverified ones carry
+`NOT VERIFIED` in the same place — the same string in every generated file, so
+one grep across a source tree finds everything unreviewed.
 
 ---
 
