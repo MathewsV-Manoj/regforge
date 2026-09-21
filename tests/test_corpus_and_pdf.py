@@ -174,42 +174,6 @@ class TestRangeFormatting:
         assert sorted(p + 1 for p in _parse_pages(_compact_ranges(pages))) == pages
 
 
-class TestSeedCorpus:
-    """The shipped BME280 seed must stay valid; it is the demo and the fixture."""
-
-    def test_seed_builds_and_validates(self):
-        import sys
-        from pathlib import Path
-
-        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "examples"))
-        from seed_bme280 import build_record
-
-        from regforge.validate import is_clean, validate_device
-
-        rec = build_record()
-        assert rec.device.part_number == "BME280"
-        assert len(rec.device.registers) == 14
-        assert is_clean(validate_device(rec.device))
-
-    def test_seed_known_values(self):
-        import sys
-        from pathlib import Path
-
-        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "examples"))
-        from seed_bme280 import build_record
-
-        regs = {r.name: r for r in build_record().device.registers}
-        assert regs["CHIP_ID"].address == 0xD0
-        assert regs["CHIP_ID"].reset_value == 0x60
-        assert regs["CTRL_MEAS"].address == 0xF4
-
-        mode = next(f for f in regs["CTRL_MEAS"].fields if f.name == "MODE")
-        assert (mode.bit_offset, mode.bit_width) == (0, 2)
-        osrs_t = next(f for f in regs["CTRL_MEAS"].fields if f.name == "OSRS_T")
-        assert (osrs_t.bit_offset, osrs_t.bit_width) == (5, 3)
-        assert osrs_t.mask == 0xE0
-
-
 def test_device_record_json_round_trip(good_device):
     rec = DeviceRecord(device=good_device, provenance=Provenance(regforge_version="x"))
     restored = DeviceRecord.model_validate_json(rec.model_dump_json())

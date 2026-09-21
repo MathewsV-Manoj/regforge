@@ -58,14 +58,19 @@ unless you pass `--force`.
 That list is the difference between generated code you can ship and generated
 code you have to re-derive by hand anyway.
 
-**2. It pays for each part once.** Extracted maps are stored in a plain-JSON
-corpus keyed by part number. The first BME280 extraction costs a model call.
-Every one after that — yours, your team's, anyone's — is served from the corpus
-for nothing:
+**2. It pays for each part once, and some parts are already paid for.**
+Extracted maps are stored in a plain-JSON corpus keyed by part number, and the
+corpus ships inside the wheel. So this works the moment you install, with no
+API key and no datasheet:
 
 ```bash
+pip install regforge
 regforge gen BME280 --out ./src --driver    # no API call, no cost
 ```
+
+Parts included today: **ADS1115, BME280, BMP280, DS3231, INA219, MCP23017,
+MPU6050** — 100 registers. Anything you extract yourself joins your own layer
+of the corpus, and your copy of a part always wins over the shipped one.
 
 **3. The generated bit math ships with its own proof.** A generated header
 always compiles — it is just `#define`s — so "it builds" tells you nothing about
@@ -124,7 +129,7 @@ From source:
 ```bash
 git clone https://github.com/<you>/regforge && cd regforge
 pip install -e ".[dev]"
-python examples/seed_bme280.py      # puts a real part in the corpus
+python examples/seed_corpus.py      # writes the seed corpus
 regforge gen BME280 --out ./out --driver
 ```
 
@@ -182,13 +187,21 @@ at all, so RegForge does not pretend.
 
 ## The corpus
 
-Extracted maps live as plain, sorted, git-diffable JSON:
+Extracted maps live as plain, sorted, git-diffable JSON in two layers:
 
 ```
-corpus/
+regforge/corpus_data/        bundled, read-only, ships in the wheel
   bosch-sensortec/bme280.json
-  invensense/mpu6050.json
+  texas-instruments/ads1115.json
+
+./corpus  (or ~/.regforge/corpus)    yours, writable
+  invensense/icm20948.json
 ```
+
+Lookups check your layer first, so a map you verified against your own revision
+of a datasheet is the one that generates. Writes — including `regforge verify`
+on a part that shipped with the package — always land in your layer, never in
+`site-packages`. `regforge list` shows which layer each part came from.
 
 Machine extraction is a starting point, not an answer. When you have checked a
 map against the datasheet, say so:
@@ -242,9 +255,15 @@ Being explicit, because the gap matters more than the feature list:
 ## Status
 
 Alpha. The schema in `models.py` is the contract everything else depends on;
-expect it to move before 1.0. If you extract a map for a part that is not in the
-corpus, a PR adding the JSON is the single most useful contribution — that is
-what makes the tool faster and cheaper for the next person.
+expect it to move before 1.0.
+
+If you extract a map for a part that is not in the corpus, a PR adding it is the
+single most useful contribution — that is what makes the tool faster and cheaper
+for the next person. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Every shipped part is currently **unverified**: hand-transcribed, validated
+mechanically, but not yet checked against the datasheet by a human. Checking one
+and running `regforge verify` is a real contribution too.
 
 ## Licence
 

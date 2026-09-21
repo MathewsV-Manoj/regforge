@@ -1,0 +1,704 @@
+{
+  "device": {
+    "buses": [
+      "i2c"
+    ],
+    "description": "Six-axis MEMS gyroscope and accelerometer with I2C",
+    "i2c_addresses": [
+      104,
+      105
+    ],
+    "manufacturer": "InvenSense",
+    "part_number": "MPU6050",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "rw",
+        "address": 25,
+        "description": "Sample rate divider. Sample rate = gyroscope output rate / (1 + SMPLRT_DIV).",
+        "fields": [],
+        "name": "SMPLRT_DIV",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 26,
+        "description": "External frame synchronisation and digital low-pass filter configuration",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 3,
+            "description": "FSYNC pin sampling configuration",
+            "enum_values": [],
+            "name": "EXT_SYNC_SET",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 3,
+            "description": "Digital low-pass filter bandwidth",
+            "enum_values": [],
+            "name": "DLPF_CFG",
+            "reset_value": 0
+          }
+        ],
+        "name": "CONFIG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 27,
+        "description": "Gyroscope self-test and full-scale range",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "X-axis gyro self-test",
+            "enum_values": [],
+            "name": "XG_ST",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Y-axis gyro self-test",
+            "enum_values": [],
+            "name": "YG_ST",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Z-axis gyro self-test",
+            "enum_values": [],
+            "name": "ZG_ST",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 2,
+            "description": "Gyroscope full-scale range",
+            "enum_values": [
+              {
+                "description": "+/-250 degrees per second",
+                "name": "DPS_250",
+                "value": 0
+              },
+              {
+                "description": "+/-500 degrees per second",
+                "name": "DPS_500",
+                "value": 1
+              },
+              {
+                "description": "+/-1000 degrees per second",
+                "name": "DPS_1000",
+                "value": 2
+              },
+              {
+                "description": "+/-2000 degrees per second",
+                "name": "DPS_2000",
+                "value": 3
+              }
+            ],
+            "name": "FS_SEL",
+            "reset_value": 0
+          }
+        ],
+        "name": "GYRO_CONFIG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 28,
+        "description": "Accelerometer self-test and full-scale range",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "X-axis accelerometer self-test",
+            "enum_values": [],
+            "name": "XA_ST",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Y-axis accelerometer self-test",
+            "enum_values": [],
+            "name": "YA_ST",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Z-axis accelerometer self-test",
+            "enum_values": [],
+            "name": "ZA_ST",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 2,
+            "description": "Accelerometer full-scale range",
+            "enum_values": [
+              {
+                "description": "+/-2 g",
+                "name": "G_2",
+                "value": 0
+              },
+              {
+                "description": "+/-4 g",
+                "name": "G_4",
+                "value": 1
+              },
+              {
+                "description": "+/-8 g",
+                "name": "G_8",
+                "value": 2
+              },
+              {
+                "description": "+/-16 g",
+                "name": "G_16",
+                "value": 3
+              }
+            ],
+            "name": "AFS_SEL",
+            "reset_value": 0
+          }
+        ],
+        "name": "ACCEL_CONFIG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 35,
+        "description": "Selects which sensor measurements are loaded into the FIFO",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Queue TEMP_OUT to the FIFO",
+            "enum_values": [],
+            "name": "TEMP_FIFO_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Queue GYRO_XOUT to the FIFO",
+            "enum_values": [],
+            "name": "XG_FIFO_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Queue GYRO_YOUT to the FIFO",
+            "enum_values": [],
+            "name": "YG_FIFO_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Queue GYRO_ZOUT to the FIFO",
+            "enum_values": [],
+            "name": "ZG_FIFO_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Queue all accelerometer output to the FIFO",
+            "enum_values": [],
+            "name": "ACCEL_FIFO_EN",
+            "reset_value": 0
+          }
+        ],
+        "name": "FIFO_EN",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 55,
+        "description": "INT pin behaviour and I2C bypass",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "0 = active high, 1 = active low",
+            "enum_values": [],
+            "name": "INT_LEVEL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "0 = push-pull, 1 = open drain",
+            "enum_values": [],
+            "name": "INT_OPEN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "0 = 50 us pulse, 1 = latched until cleared",
+            "enum_values": [],
+            "name": "LATCH_INT_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "1 = any read clears the interrupt status",
+            "enum_values": [],
+            "name": "INT_RD_CLEAR",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "FSYNC interrupt active level",
+            "enum_values": [],
+            "name": "FSYNC_INT_LEVEL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Enable the FSYNC pin as an interrupt source",
+            "enum_values": [],
+            "name": "FSYNC_INT_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Connect the auxiliary I2C bus to the main bus",
+            "enum_values": [],
+            "name": "I2C_BYPASS_EN",
+            "reset_value": 0
+          }
+        ],
+        "name": "INT_PIN_CFG",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 56,
+        "description": "Interrupt enables",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Interrupt on FIFO overflow",
+            "enum_values": [],
+            "name": "FIFO_OFLOW_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Interrupt on I2C master events",
+            "enum_values": [],
+            "name": "I2C_MST_INT_EN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Interrupt when new sensor data is available",
+            "enum_values": [],
+            "name": "DATA_RDY_EN",
+            "reset_value": 0
+          }
+        ],
+        "name": "INT_ENABLE",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 58,
+        "description": "Interrupt status. Cleared on read.",
+        "fields": [
+          {
+            "access": "ro",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "FIFO overflow occurred",
+            "enum_values": [],
+            "name": "FIFO_OFLOW_INT",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "I2C master interrupt",
+            "enum_values": [],
+            "name": "I2C_MST_INT",
+            "reset_value": 0
+          },
+          {
+            "access": "ro",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "New sensor data is available",
+            "enum_values": [],
+            "name": "DATA_RDY_INT",
+            "reset_value": 0
+          }
+        ],
+        "name": "INT_STATUS",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 59,
+        "description": "Accelerometer X-axis measurement, high byte",
+        "fields": [],
+        "name": "ACCEL_XOUT_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 60,
+        "description": "Accelerometer X-axis measurement, low byte",
+        "fields": [],
+        "name": "ACCEL_XOUT_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 61,
+        "description": "Accelerometer Y-axis measurement, high byte",
+        "fields": [],
+        "name": "ACCEL_YOUT_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 62,
+        "description": "Accelerometer Y-axis measurement, low byte",
+        "fields": [],
+        "name": "ACCEL_YOUT_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 63,
+        "description": "Accelerometer Z-axis measurement, high byte",
+        "fields": [],
+        "name": "ACCEL_ZOUT_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 64,
+        "description": "Accelerometer Z-axis measurement, low byte",
+        "fields": [],
+        "name": "ACCEL_ZOUT_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 65,
+        "description": "Temperature measurement, high byte",
+        "fields": [],
+        "name": "TEMP_OUT_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 66,
+        "description": "Temperature measurement, low byte",
+        "fields": [],
+        "name": "TEMP_OUT_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 67,
+        "description": "Gyroscope X-axis measurement, high byte",
+        "fields": [],
+        "name": "GYRO_XOUT_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 68,
+        "description": "Gyroscope X-axis measurement, low byte",
+        "fields": [],
+        "name": "GYRO_XOUT_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 69,
+        "description": "Gyroscope Y-axis measurement, high byte",
+        "fields": [],
+        "name": "GYRO_YOUT_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 70,
+        "description": "Gyroscope Y-axis measurement, low byte",
+        "fields": [],
+        "name": "GYRO_YOUT_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 71,
+        "description": "Gyroscope Z-axis measurement, high byte",
+        "fields": [],
+        "name": "GYRO_ZOUT_H",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 72,
+        "description": "Gyroscope Z-axis measurement, low byte",
+        "fields": [],
+        "name": "GYRO_ZOUT_L",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 107,
+        "description": "Power mode and clock source. Note the reset value: SLEEP is set, so the device must be woken before it will produce data.",
+        "fields": [
+          {
+            "access": "w1p",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Write 1 to reset all registers; self-clearing",
+            "enum_values": [],
+            "name": "DEVICE_RESET",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Sleep mode. Set at reset -- clear it to start measuring.",
+            "enum_values": [],
+            "name": "SLEEP",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Cycle between sleep and a single sample at LP_WAKE_CTRL rate",
+            "enum_values": [],
+            "name": "CYCLE",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Disable the temperature sensor",
+            "enum_values": [],
+            "name": "TEMP_DIS",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 3,
+            "description": "Clock source select",
+            "enum_values": [
+              {
+                "description": "Internal 8 MHz oscillator",
+                "name": "INTERNAL_8MHZ",
+                "value": 0
+              },
+              {
+                "description": "PLL with X-axis gyro reference (recommended)",
+                "name": "PLL_X_GYRO",
+                "value": 1
+              },
+              {
+                "description": "PLL with Y-axis gyro reference",
+                "name": "PLL_Y_GYRO",
+                "value": 2
+              },
+              {
+                "description": "PLL with Z-axis gyro reference",
+                "name": "PLL_Z_GYRO",
+                "value": 3
+              },
+              {
+                "description": "PLL with external 32.768 kHz reference",
+                "name": "PLL_EXT_32K",
+                "value": 4
+              },
+              {
+                "description": "PLL with external 19.2 MHz reference",
+                "name": "PLL_EXT_19M",
+                "value": 5
+              },
+              {
+                "description": "Stops the clock and holds the timing generator in reset",
+                "name": "STOP",
+                "value": 7
+              }
+            ],
+            "name": "CLKSEL",
+            "reset_value": 0
+          }
+        ],
+        "name": "PWR_MGMT_1",
+        "reset_value": 64,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 108,
+        "description": "Low-power wake rate and per-axis standby",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 2,
+            "description": "Wake-up frequency in accelerometer-only low-power mode",
+            "enum_values": [],
+            "name": "LP_WAKE_CTRL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Put the X-axis accelerometer into standby",
+            "enum_values": [],
+            "name": "STBY_XA",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Put the Y-axis accelerometer into standby",
+            "enum_values": [],
+            "name": "STBY_YA",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Put the Z-axis accelerometer into standby",
+            "enum_values": [],
+            "name": "STBY_ZA",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Put the X-axis gyro into standby",
+            "enum_values": [],
+            "name": "STBY_XG",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Put the Y-axis gyro into standby",
+            "enum_values": [],
+            "name": "STBY_YG",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Put the Z-axis gyro into standby",
+            "enum_values": [],
+            "name": "STBY_ZG",
+            "reset_value": 0
+          }
+        ],
+        "name": "PWR_MGMT_2",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 117,
+        "description": "Device identity. Contains the upper six bits of the I2C address; reads 0x68.",
+        "fields": [],
+        "name": "WHO_AM_I",
+        "reset_value": 104,
+        "size_bits": 8
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. Check against InvenSense MPU-6000/MPU-6050 Register Map and Descriptions before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "InvenSense MPU-6000/MPU-6050 Register Map and Descriptions (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}

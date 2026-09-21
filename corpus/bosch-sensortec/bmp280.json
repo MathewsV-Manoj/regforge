@@ -4,22 +4,22 @@
       "i2c",
       "spi"
     ],
-    "description": "Combined humidity, pressure and temperature sensor",
+    "description": "Digital pressure and temperature sensor",
     "i2c_addresses": [
       118,
       119
     ],
     "manufacturer": "Bosch Sensortec",
-    "part_number": "BME280",
+    "part_number": "BMP280",
     "register_address_bits": 8,
     "registers": [
       {
         "access": "ro",
         "address": 208,
-        "description": "Chip identification number. Reads 0x60 on a BME280 (0x58 on a BMP280).",
+        "description": "Chip identification number. Reads 0x58 on a BMP280 (0x60 on a BME280).",
         "fields": [],
         "name": "CHIP_ID",
-        "reset_value": 96,
+        "reset_value": 88,
         "size_bits": 8
       },
       {
@@ -28,56 +28,6 @@
         "description": "Write 0xB6 to trigger a soft reset. Any other value is ignored. Reads return 0x00.",
         "fields": [],
         "name": "RESET",
-        "reset_value": 0,
-        "size_bits": 8
-      },
-      {
-        "access": "rw",
-        "address": 242,
-        "description": "Humidity acquisition options. Changes take effect only after a write to CTRL_MEAS.",
-        "fields": [
-          {
-            "access": "rw",
-            "bit_offset": 0,
-            "bit_width": 3,
-            "description": "Oversampling setting for humidity",
-            "enum_values": [
-              {
-                "description": "Measurement skipped, output set to 0x80000",
-                "name": "SKIPPED",
-                "value": 0
-              },
-              {
-                "description": "Oversampling x1",
-                "name": "X1",
-                "value": 1
-              },
-              {
-                "description": "Oversampling x2",
-                "name": "X2",
-                "value": 2
-              },
-              {
-                "description": "Oversampling x4",
-                "name": "X4",
-                "value": 3
-              },
-              {
-                "description": "Oversampling x8",
-                "name": "X8",
-                "value": 4
-              },
-              {
-                "description": "Oversampling x16",
-                "name": "X16",
-                "value": 5
-              }
-            ],
-            "name": "OSRS_H",
-            "reset_value": 0
-          }
-        ],
-        "name": "CTRL_HUM",
         "reset_value": 0,
         "size_bits": 8
       },
@@ -271,13 +221,13 @@
                 "value": 5
               },
               {
-                "description": "10 ms -- differs from the BMP280",
-                "name": "10_MS",
+                "description": "2000 ms -- differs from the BME280",
+                "name": "2000_MS",
                 "value": 6
               },
               {
-                "description": "20 ms -- differs from the BMP280",
-                "name": "20_MS",
+                "description": "4000 ms -- differs from the BME280",
+                "name": "4000_MS",
                 "value": 7
               }
             ],
@@ -386,24 +336,6 @@
         "name": "TEMP_XLSB",
         "reset_value": 0,
         "size_bits": 8
-      },
-      {
-        "access": "ro",
-        "address": 253,
-        "description": "Raw humidity, bits [15:8]",
-        "fields": [],
-        "name": "HUM_MSB",
-        "reset_value": 128,
-        "size_bits": 8
-      },
-      {
-        "access": "ro",
-        "address": 254,
-        "description": "Raw humidity, bits [7:0]",
-        "fields": [],
-        "name": "HUM_LSB",
-        "reset_value": 0,
-        "size_bits": 8
       }
     ]
   },
@@ -412,11 +344,11 @@
     "extracted_at": null,
     "extraction_model": null,
     "input_tokens": 0,
-    "notes": "Hand-authored seed entry, not machine-extracted. Check against BST-BME280-DS002 before trusting it, then mark it verified.",
+    "notes": "Hand-authored seed entry, not machine-extracted. Check against BST-BMP280-DS001 before trusting it, then mark it verified.",
     "output_tokens": 0,
     "regforge_version": "0.1.0",
     "schema_version": "1.0",
-    "source_filename": "BST-BME280-DS002 (hand-transcribed)",
+    "source_filename": "BST-BMP280-DS001 (hand-transcribed)",
     "source_pages": [],
     "source_sha256": null,
     "verified": false,

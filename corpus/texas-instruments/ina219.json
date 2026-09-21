@@ -1,0 +1,368 @@
+{
+  "device": {
+    "buses": [
+      "i2c"
+    ],
+    "description": "High-side bidirectional current and power monitor with I2C",
+    "i2c_addresses": [
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79
+    ],
+    "manufacturer": "Texas Instruments",
+    "part_number": "INA219",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "rw",
+        "address": 0,
+        "description": "Bus voltage range, PGA gain, ADC resolution/averaging and operating mode",
+        "fields": [
+          {
+            "access": "w1p",
+            "bit_offset": 15,
+            "bit_width": 1,
+            "description": "Write 1 to reset all registers to their default values; self-clearing",
+            "enum_values": [],
+            "name": "RST",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 13,
+            "bit_width": 1,
+            "description": "Bus voltage range",
+            "enum_values": [
+              {
+                "description": "16 V full scale",
+                "name": "FSR_16V",
+                "value": 0
+              },
+              {
+                "description": "32 V full scale (default)",
+                "name": "FSR_32V",
+                "value": 1
+              }
+            ],
+            "name": "BRNG",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 11,
+            "bit_width": 2,
+            "description": "Shunt voltage PGA gain and range",
+            "enum_values": [
+              {
+                "description": "Gain /1, +/-40 mV",
+                "name": "GAIN_1_40MV",
+                "value": 0
+              },
+              {
+                "description": "Gain /2, +/-80 mV",
+                "name": "GAIN_2_80MV",
+                "value": 1
+              },
+              {
+                "description": "Gain /4, +/-160 mV",
+                "name": "GAIN_4_160MV",
+                "value": 2
+              },
+              {
+                "description": "Gain /8, +/-320 mV (default)",
+                "name": "GAIN_8_320MV",
+                "value": 3
+              }
+            ],
+            "name": "PG",
+            "reset_value": 3
+          },
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 4,
+            "description": "Bus ADC resolution and averaging",
+            "enum_values": [
+              {
+                "description": "9-bit, 84 us",
+                "name": "RES_9BIT",
+                "value": 0
+              },
+              {
+                "description": "10-bit, 148 us",
+                "name": "RES_10BIT",
+                "value": 1
+              },
+              {
+                "description": "11-bit, 276 us",
+                "name": "RES_11BIT",
+                "value": 2
+              },
+              {
+                "description": "12-bit, 532 us (default)",
+                "name": "RES_12BIT",
+                "value": 3
+              },
+              {
+                "description": "12-bit, 2 samples averaged, 1.06 ms",
+                "name": "SAMPLES_2",
+                "value": 9
+              },
+              {
+                "description": "12-bit, 4 samples averaged, 2.13 ms",
+                "name": "SAMPLES_4",
+                "value": 10
+              },
+              {
+                "description": "12-bit, 8 samples averaged, 4.26 ms",
+                "name": "SAMPLES_8",
+                "value": 11
+              },
+              {
+                "description": "12-bit, 16 samples averaged, 8.51 ms",
+                "name": "SAMPLES_16",
+                "value": 12
+              },
+              {
+                "description": "12-bit, 32 samples averaged, 17.02 ms",
+                "name": "SAMPLES_32",
+                "value": 13
+              },
+              {
+                "description": "12-bit, 64 samples averaged, 34.05 ms",
+                "name": "SAMPLES_64",
+                "value": 14
+              },
+              {
+                "description": "12-bit, 128 samples averaged, 68.10 ms",
+                "name": "SAMPLES_128",
+                "value": 15
+              }
+            ],
+            "name": "BADC",
+            "reset_value": 3
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 4,
+            "description": "Shunt ADC resolution and averaging",
+            "enum_values": [
+              {
+                "description": "9-bit, 84 us",
+                "name": "RES_9BIT",
+                "value": 0
+              },
+              {
+                "description": "10-bit, 148 us",
+                "name": "RES_10BIT",
+                "value": 1
+              },
+              {
+                "description": "11-bit, 276 us",
+                "name": "RES_11BIT",
+                "value": 2
+              },
+              {
+                "description": "12-bit, 532 us (default)",
+                "name": "RES_12BIT",
+                "value": 3
+              },
+              {
+                "description": "12-bit, 2 samples averaged, 1.06 ms",
+                "name": "SAMPLES_2",
+                "value": 9
+              },
+              {
+                "description": "12-bit, 4 samples averaged, 2.13 ms",
+                "name": "SAMPLES_4",
+                "value": 10
+              },
+              {
+                "description": "12-bit, 8 samples averaged, 4.26 ms",
+                "name": "SAMPLES_8",
+                "value": 11
+              },
+              {
+                "description": "12-bit, 16 samples averaged, 8.51 ms",
+                "name": "SAMPLES_16",
+                "value": 12
+              },
+              {
+                "description": "12-bit, 32 samples averaged, 17.02 ms",
+                "name": "SAMPLES_32",
+                "value": 13
+              },
+              {
+                "description": "12-bit, 64 samples averaged, 34.05 ms",
+                "name": "SAMPLES_64",
+                "value": 14
+              },
+              {
+                "description": "12-bit, 128 samples averaged, 68.10 ms",
+                "name": "SAMPLES_128",
+                "value": 15
+              }
+            ],
+            "name": "SADC",
+            "reset_value": 3
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 3,
+            "description": "Operating mode",
+            "enum_values": [
+              {
+                "description": "Power down",
+                "name": "POWER_DOWN",
+                "value": 0
+              },
+              {
+                "description": "Shunt voltage, triggered",
+                "name": "SHUNT_TRIGGERED",
+                "value": 1
+              },
+              {
+                "description": "Bus voltage, triggered",
+                "name": "BUS_TRIGGERED",
+                "value": 2
+              },
+              {
+                "description": "Shunt and bus, triggered",
+                "name": "SHUNT_BUS_TRIGGERED",
+                "value": 3
+              },
+              {
+                "description": "ADC off / disabled",
+                "name": "ADC_OFF",
+                "value": 4
+              },
+              {
+                "description": "Shunt voltage, continuous",
+                "name": "SHUNT_CONTINUOUS",
+                "value": 5
+              },
+              {
+                "description": "Bus voltage, continuous",
+                "name": "BUS_CONTINUOUS",
+                "value": 6
+              },
+              {
+                "description": "Shunt and bus, continuous (default)",
+                "name": "SHUNT_BUS_CONTINUOUS",
+                "value": 7
+              }
+            ],
+            "name": "MODE",
+            "reset_value": 7
+          }
+        ],
+        "name": "CONFIG",
+        "reset_value": 14751,
+        "size_bits": 16
+      },
+      {
+        "access": "ro",
+        "address": 1,
+        "description": "Measured shunt voltage, two's complement. LSB weight depends on the PG setting.",
+        "fields": [],
+        "name": "SHUNT_VOLTAGE",
+        "reset_value": null,
+        "size_bits": 16
+      },
+      {
+        "access": "ro",
+        "address": 2,
+        "description": "Measured bus voltage, plus conversion-ready and overflow flags",
+        "fields": [
+          {
+            "access": "ro",
+            "bit_offset": 3,
+            "bit_width": 13,
+            "description": "Bus voltage data, 4 mV per LSB",
+            "enum_values": [],
+            "name": "BD",
+            "reset_value": null
+          },
+          {
+            "access": "ro",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Conversion ready; cleared by reading the POWER register or writing CONFIG",
+            "enum_values": [],
+            "name": "CNVR",
+            "reset_value": null
+          },
+          {
+            "access": "ro",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Math overflow: the power or current calculation was out of range",
+            "enum_values": [],
+            "name": "OVF",
+            "reset_value": null
+          }
+        ],
+        "name": "BUS_VOLTAGE",
+        "reset_value": null,
+        "size_bits": 16
+      },
+      {
+        "access": "ro",
+        "address": 3,
+        "description": "Calculated power. Reads zero until CALIBRATION has been written.",
+        "fields": [],
+        "name": "POWER",
+        "reset_value": 0,
+        "size_bits": 16
+      },
+      {
+        "access": "ro",
+        "address": 4,
+        "description": "Calculated current, two's complement. Reads zero until CALIBRATION has been written.",
+        "fields": [],
+        "name": "CURRENT",
+        "reset_value": 0,
+        "size_bits": 16
+      },
+      {
+        "access": "rw",
+        "address": 5,
+        "description": "Current/power scaling. Bit 0 is not used; the value is effectively 15-bit.",
+        "fields": [],
+        "name": "CALIBRATION",
+        "reset_value": 0,
+        "size_bits": 16
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. Check against TI INA219 datasheet (SBOS448) before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "TI INA219 datasheet (SBOS448) (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}

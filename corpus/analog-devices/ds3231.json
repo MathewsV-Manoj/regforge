@@ -1,0 +1,581 @@
+{
+  "device": {
+    "buses": [
+      "i2c"
+    ],
+    "description": "Extremely accurate I2C real-time clock with integrated TCXO and crystal",
+    "i2c_addresses": [
+      104
+    ],
+    "manufacturer": "Analog Devices",
+    "part_number": "DS3231",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "rw",
+        "address": 0,
+        "description": "Seconds, BCD, 00-59",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 3,
+            "description": "Tens of seconds, 0-5",
+            "enum_values": [],
+            "name": "SECONDS_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of seconds, 0-9",
+            "enum_values": [],
+            "name": "SECONDS_1",
+            "reset_value": null
+          }
+        ],
+        "name": "SECONDS",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 1,
+        "description": "Minutes, BCD, 00-59",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 3,
+            "description": "Tens of minutes, 0-5",
+            "enum_values": [],
+            "name": "MINUTES_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of minutes, 0-9",
+            "enum_values": [],
+            "name": "MINUTES_1",
+            "reset_value": null
+          }
+        ],
+        "name": "MINUTES",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 2,
+        "description": "Hours, BCD. Format depends on the 12/24 bit.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "0 = 24-hour mode, 1 = 12-hour mode",
+            "enum_values": [
+              {
+                "description": "24-hour format",
+                "name": "MODE_24H",
+                "value": 0
+              },
+              {
+                "description": "12-hour format, bit 5 is AM/PM",
+                "name": "MODE_12H",
+                "value": 1
+              }
+            ],
+            "name": "MODE_12_24",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "In 12-hour mode: 0 = AM, 1 = PM. In 24-hour mode: the 20-hour bit.",
+            "enum_values": [],
+            "name": "AM_PM_HOUR_20",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "The 10-hour bit",
+            "enum_values": [],
+            "name": "HOURS_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of hours, 0-9",
+            "enum_values": [],
+            "name": "HOURS_1",
+            "reset_value": null
+          }
+        ],
+        "name": "HOURS",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 3,
+        "description": "Day of week, 1-7. Defined by the user and incremented at midnight.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 3,
+            "description": "Day of week, 1-7",
+            "enum_values": [],
+            "name": "DAY",
+            "reset_value": null
+          }
+        ],
+        "name": "DAY",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 4,
+        "description": "Day of month, BCD, 01-31",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 2,
+            "description": "Tens of the date, 0-3",
+            "enum_values": [],
+            "name": "DATE_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of the date, 0-9",
+            "enum_values": [],
+            "name": "DATE_1",
+            "reset_value": null
+          }
+        ],
+        "name": "DATE",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 5,
+        "description": "Month in BCD, plus the century flag",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Toggles when the year counter overflows from 99 to 00",
+            "enum_values": [],
+            "name": "CENTURY",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Tens of the month",
+            "enum_values": [],
+            "name": "MONTH_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of the month, 0-9",
+            "enum_values": [],
+            "name": "MONTH_1",
+            "reset_value": null
+          }
+        ],
+        "name": "MONTH_CENTURY",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 6,
+        "description": "Year within the century, BCD, 00-99",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 4,
+            "description": "Tens of the year",
+            "enum_values": [],
+            "name": "YEAR_10",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 4,
+            "description": "Units of the year",
+            "enum_values": [],
+            "name": "YEAR_1",
+            "reset_value": null
+          }
+        ],
+        "name": "YEAR",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 7,
+        "description": "Alarm 1 seconds, BCD, with the A1M1 mask in bit 7",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Alarm 1 mask bit 1",
+            "enum_values": [],
+            "name": "A1M1",
+            "reset_value": null
+          }
+        ],
+        "name": "ALARM1_SECONDS",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 8,
+        "description": "Alarm 1 minutes, BCD, with the A1M2 mask in bit 7",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Alarm 1 mask bit 2",
+            "enum_values": [],
+            "name": "A1M2",
+            "reset_value": null
+          }
+        ],
+        "name": "ALARM1_MINUTES",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 9,
+        "description": "Alarm 1 hours, BCD, with the A1M3 mask in bit 7",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Alarm 1 mask bit 3",
+            "enum_values": [],
+            "name": "A1M3",
+            "reset_value": null
+          }
+        ],
+        "name": "ALARM1_HOURS",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 10,
+        "description": "Alarm 1 day or date, selected by DY/DT",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Alarm 1 mask bit 4",
+            "enum_values": [],
+            "name": "A1M4",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "0 = match the date, 1 = match the day of week",
+            "enum_values": [],
+            "name": "DY_DT",
+            "reset_value": null
+          }
+        ],
+        "name": "ALARM1_DAY_DATE",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 11,
+        "description": "Alarm 2 minutes, BCD, with the A2M2 mask in bit 7",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Alarm 2 mask bit 2",
+            "enum_values": [],
+            "name": "A2M2",
+            "reset_value": null
+          }
+        ],
+        "name": "ALARM2_MINUTES",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 12,
+        "description": "Alarm 2 hours, BCD, with the A2M3 mask in bit 7",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Alarm 2 mask bit 3",
+            "enum_values": [],
+            "name": "A2M3",
+            "reset_value": null
+          }
+        ],
+        "name": "ALARM2_HOURS",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 13,
+        "description": "Alarm 2 day or date, selected by DY/DT",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Alarm 2 mask bit 4",
+            "enum_values": [],
+            "name": "A2M4",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "0 = match the date, 1 = match the day of week",
+            "enum_values": [],
+            "name": "DY_DT",
+            "reset_value": null
+          }
+        ],
+        "name": "ALARM2_DAY_DATE",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 14,
+        "description": "Oscillator, square wave and alarm interrupt control",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Enable oscillator, active low. 0 = oscillator runs on battery.",
+            "enum_values": [],
+            "name": "EOSC",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "Battery-backed square wave enable",
+            "enum_values": [],
+            "name": "BBSQW",
+            "reset_value": 0
+          },
+          {
+            "access": "w1p",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Force a temperature conversion; self-clearing",
+            "enum_values": [],
+            "name": "CONV",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Square wave rate select, high bit",
+            "enum_values": [],
+            "name": "RS2",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Square wave rate select, low bit",
+            "enum_values": [],
+            "name": "RS1",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Interrupt control. 1 = INT/SQW outputs alarm interrupts.",
+            "enum_values": [],
+            "name": "INTCN",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Alarm 2 interrupt enable",
+            "enum_values": [],
+            "name": "A2IE",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Alarm 1 interrupt enable",
+            "enum_values": [],
+            "name": "A1IE",
+            "reset_value": 0
+          }
+        ],
+        "name": "CONTROL",
+        "reset_value": 28,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 15,
+        "description": "Oscillator stop flag, 32 kHz output enable and alarm flags",
+        "fields": [
+          {
+            "access": "rw1c",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Oscillator stop flag: the timekeeping data may be invalid",
+            "enum_values": [],
+            "name": "OSF",
+            "reset_value": null
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Enable the 32 kHz output",
+            "enum_values": [],
+            "name": "EN32KHZ",
+            "reset_value": 1
+          },
+          {
+            "access": "ro",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Busy executing a temperature conversion",
+            "enum_values": [],
+            "name": "BSY",
+            "reset_value": null
+          },
+          {
+            "access": "rw1c",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "Alarm 2 flag; write 0 to clear",
+            "enum_values": [],
+            "name": "A2F",
+            "reset_value": null
+          },
+          {
+            "access": "rw1c",
+            "bit_offset": 0,
+            "bit_width": 1,
+            "description": "Alarm 1 flag; write 0 to clear",
+            "enum_values": [],
+            "name": "A1F",
+            "reset_value": null
+          }
+        ],
+        "name": "STATUS",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 16,
+        "description": "Aging offset, two's complement, applied to the oscillator capacitance",
+        "fields": [],
+        "name": "AGING_OFFSET",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 17,
+        "description": "Temperature, integer part, two's complement",
+        "fields": [],
+        "name": "TEMP_MSB",
+        "reset_value": null,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 18,
+        "description": "Temperature, fractional part in bits [7:6], 0.25 C per LSB",
+        "fields": [
+          {
+            "access": "ro",
+            "bit_offset": 6,
+            "bit_width": 2,
+            "description": "Fractional temperature, 0.25 C per count",
+            "enum_values": [],
+            "name": "TEMP_FRACTION",
+            "reset_value": null
+          }
+        ],
+        "name": "TEMP_LSB",
+        "reset_value": null,
+        "size_bits": 8
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. Timekeeping registers carry no reset value because the datasheet states none -- they hold whatever the backup supply preserved. Time and date fields are BCD. Check against the DS3231 datasheet before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "Maxim/ADI DS3231 datasheet (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}

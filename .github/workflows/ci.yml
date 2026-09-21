@@ -21,6 +21,26 @@ jobs:
       - run: pip install -e ".[dev]"
       - run: pytest -q
 
+  corpus:
+    name: every shipped part validates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+
+      - name: Seeds validate
+        run: python examples/seed_corpus.py --check
+
+      - name: Committed corpus matches the seeds
+        # A hand-edited corpus/*.json that no longer matches its builder would
+        # silently ship. Re-seed into a scratch directory and diff.
+        run: |
+          python examples/seed_corpus.py --corpus /tmp/reseeded
+          diff -r corpus /tmp/reseeded
+
   generated-code-compiles:
     # The real regression test. The Python suite checks that we emit the macros
     # we meant to; this checks that a C compiler agrees the bit arithmetic is
@@ -34,22 +54,30 @@ jobs:
           python-version: "3.12"
       - run: pip install -e .
 
-      - name: Seed the corpus and generate
+      - name: Generate every part in the corpus
         run: |
-          python examples/seed_bme280.py
-          regforge gen BME280 --out ./ci-out --driver --tests
+          set -e
+          for part in $(regforge list | tail -n +2 | awk '{print $1}'); do
+            echo "::group::$part"
+            regforge gen "$part" --out ./ci-out --driver --tests
+            echo "::endgroup::"
+          done
 
-      - name: Compile driver and self-check (C99, C11, C++17)
+      - name: Compile everything (C99, C11, C++17)
         working-directory: ci-out
         run: |
           set -e
-          for std in c99 c11; do
-            gcc -std=$std -Wall -Wextra -Wpedantic -Werror -c bme280_regs_test.c -o /dev/null
-            gcc -std=$std -Wall -Wextra -Wpedantic -Werror -c bme280.c -o /dev/null
-            echo "OK  gcc -std=$std"
+          for f in *_regs_test.c; do
+            for std in c99 c11; do
+              gcc -std=$std -Wall -Wextra -Wpedantic -Werror -c "$f" -o /dev/null
+            done
+            g++ -std=c++17 -Wall -Wextra -Werror -c "$f" -o /dev/null
+            echo "OK  $f  ($(grep -c REGFORGE_STATIC_ASSERT "$f") assertions)"
           done
-          g++ -std=c++17 -Wall -Wextra -Werror -c bme280_regs_test.c -o /dev/null
-          echo "OK  g++ -std=c++17"
+          for f in $(ls *.c | grep -v _regs_test); do
+            gcc -std=c99 -Wall -Wextra -Wpedantic -Werror -c "$f" -o /dev/null
+            echo "OK  $f"
+          done
 
       - name: Self-check must actually be able to fail
         working-directory: ci-out
@@ -63,3 +91,28 @@ jobs:
             exit 1
           fi
           echo "OK  corrupted mask is rejected by the generated self-check"
+
+  packaging:
+    name: wheel ships a usable corpus
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build
+      - run: python -m build --wheel
+
+      - name: Install the wheel into a clean environment and generate
+        # Guards the bug where the wheel shipped with an empty corpus and
+        # `regforge gen` failed for everyone who had not cloned the repo.
+        run: |
+          set -e
+          python -m venv /tmp/fresh
+          /tmp/fresh/bin/pip install --quiet dist/*.whl
+          cd /tmp
+          /tmp/fresh/bin/regforge stats
+          test "$(/tmp/fresh/bin/regforge list | tail -n +2 | wc -l)" -gt 0
+          /tmp/fresh/bin/regforge gen BME280 --out /tmp/fresh-out --driver --tests
+          gcc -std=c99 -Wall -Wextra -Werror -c /tmp/fresh-out/bme280_regs_test.c -o /dev/null
+          echo "OK  a fresh pip install can generate immediately"

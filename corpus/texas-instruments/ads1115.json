@@ -1,0 +1,341 @@
+{
+  "device": {
+    "buses": [
+      "i2c"
+    ],
+    "description": "16-bit delta-sigma ADC with PGA, comparator and I2C interface",
+    "i2c_addresses": [
+      72,
+      73,
+      74,
+      75
+    ],
+    "manufacturer": "Texas Instruments",
+    "part_number": "ADS1115",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "ro",
+        "address": 0,
+        "description": "Last conversion result, two's complement, left-aligned",
+        "fields": [],
+        "name": "CONVERSION",
+        "reset_value": 0,
+        "size_bits": 16
+      },
+      {
+        "access": "rw",
+        "address": 1,
+        "description": "Operating mode, input multiplexer, PGA, data rate and comparator",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 15,
+            "bit_width": 1,
+            "description": "Write 1 to start a single conversion; reads 0 while a conversion is running",
+            "enum_values": [
+              {
+                "description": "Conversion in progress (on read)",
+                "name": "BUSY",
+                "value": 0
+              },
+              {
+                "description": "Start a single conversion (on write)",
+                "name": "START",
+                "value": 1
+              }
+            ],
+            "name": "OS",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 12,
+            "bit_width": 3,
+            "description": "Input multiplexer configuration",
+            "enum_values": [
+              {
+                "description": "Differential AIN0 - AIN1 (default)",
+                "name": "AIN0_AIN1",
+                "value": 0
+              },
+              {
+                "description": "Differential AIN0 - AIN3",
+                "name": "AIN0_AIN3",
+                "value": 1
+              },
+              {
+                "description": "Differential AIN1 - AIN3",
+                "name": "AIN1_AIN3",
+                "value": 2
+              },
+              {
+                "description": "Differential AIN2 - AIN3",
+                "name": "AIN2_AIN3",
+                "value": 3
+              },
+              {
+                "description": "Single-ended AIN0",
+                "name": "AIN0_GND",
+                "value": 4
+              },
+              {
+                "description": "Single-ended AIN1",
+                "name": "AIN1_GND",
+                "value": 5
+              },
+              {
+                "description": "Single-ended AIN2",
+                "name": "AIN2_GND",
+                "value": 6
+              },
+              {
+                "description": "Single-ended AIN3",
+                "name": "AIN3_GND",
+                "value": 7
+              }
+            ],
+            "name": "MUX",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 9,
+            "bit_width": 3,
+            "description": "Programmable gain amplifier setting",
+            "enum_values": [
+              {
+                "description": "Full-scale range +/-6.144 V",
+                "name": "FSR_6_144V",
+                "value": 0
+              },
+              {
+                "description": "Full-scale range +/-4.096 V",
+                "name": "FSR_4_096V",
+                "value": 1
+              },
+              {
+                "description": "Full-scale range +/-2.048 V (default)",
+                "name": "FSR_2_048V",
+                "value": 2
+              },
+              {
+                "description": "Full-scale range +/-1.024 V",
+                "name": "FSR_1_024V",
+                "value": 3
+              },
+              {
+                "description": "Full-scale range +/-0.512 V",
+                "name": "FSR_0_512V",
+                "value": 4
+              },
+              {
+                "description": "Full-scale range +/-0.256 V",
+                "name": "FSR_0_256V",
+                "value": 5
+              }
+            ],
+            "name": "PGA",
+            "reset_value": 2
+          },
+          {
+            "access": "rw",
+            "bit_offset": 8,
+            "bit_width": 1,
+            "description": "Conversion mode",
+            "enum_values": [
+              {
+                "description": "Continuous conversion",
+                "name": "CONTINUOUS",
+                "value": 0
+              },
+              {
+                "description": "Single-shot, power down between (default)",
+                "name": "SINGLE_SHOT",
+                "value": 1
+              }
+            ],
+            "name": "MODE",
+            "reset_value": 1
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 3,
+            "description": "Data rate",
+            "enum_values": [
+              {
+                "description": "8 samples per second",
+                "name": "SPS_8",
+                "value": 0
+              },
+              {
+                "description": "16 samples per second",
+                "name": "SPS_16",
+                "value": 1
+              },
+              {
+                "description": "32 samples per second",
+                "name": "SPS_32",
+                "value": 2
+              },
+              {
+                "description": "64 samples per second",
+                "name": "SPS_64",
+                "value": 3
+              },
+              {
+                "description": "128 samples per second (default)",
+                "name": "SPS_128",
+                "value": 4
+              },
+              {
+                "description": "250 samples per second",
+                "name": "SPS_250",
+                "value": 5
+              },
+              {
+                "description": "475 samples per second",
+                "name": "SPS_475",
+                "value": 6
+              },
+              {
+                "description": "860 samples per second",
+                "name": "SPS_860",
+                "value": 7
+              }
+            ],
+            "name": "DR",
+            "reset_value": 4
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Comparator mode",
+            "enum_values": [
+              {
+                "description": "Traditional comparator (default)",
+                "name": "TRADITIONAL",
+                "value": 0
+              },
+              {
+                "description": "Window comparator",
+                "name": "WINDOW",
+                "value": 1
+              }
+            ],
+            "name": "COMP_MODE",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "ALERT/RDY polarity",
+            "enum_values": [
+              {
+                "description": "Active low (default)",
+                "name": "ACTIVE_LOW",
+                "value": 0
+              },
+              {
+                "description": "Active high",
+                "name": "ACTIVE_HIGH",
+                "value": 1
+              }
+            ],
+            "name": "COMP_POL",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "Latching comparator",
+            "enum_values": [
+              {
+                "description": "Non-latching (default)",
+                "name": "NON_LATCHING",
+                "value": 0
+              },
+              {
+                "description": "Latching until read",
+                "name": "LATCHING",
+                "value": 1
+              }
+            ],
+            "name": "COMP_LAT",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 0,
+            "bit_width": 2,
+            "description": "Comparator queue and disable",
+            "enum_values": [
+              {
+                "description": "Assert after one conversion",
+                "name": "ASSERT_AFTER_1",
+                "value": 0
+              },
+              {
+                "description": "Assert after two conversions",
+                "name": "ASSERT_AFTER_2",
+                "value": 1
+              },
+              {
+                "description": "Assert after four conversions",
+                "name": "ASSERT_AFTER_4",
+                "value": 2
+              },
+              {
+                "description": "Comparator disabled, ALERT/RDY high-Z (default)",
+                "name": "DISABLED",
+                "value": 3
+              }
+            ],
+            "name": "COMP_QUE",
+            "reset_value": 3
+          }
+        ],
+        "name": "CONFIG",
+        "reset_value": 34179,
+        "size_bits": 16
+      },
+      {
+        "access": "rw",
+        "address": 2,
+        "description": "Comparator low threshold, two's complement",
+        "fields": [],
+        "name": "LO_THRESH",
+        "reset_value": 32768,
+        "size_bits": 16
+      },
+      {
+        "access": "rw",
+        "address": 3,
+        "description": "Comparator high threshold, two's complement",
+        "fields": [],
+        "name": "HI_THRESH",
+        "reset_value": 32767,
+        "size_bits": 16
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. Check against TI ADS1115 datasheet (SBAS444) before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "TI ADS1115 datasheet (SBAS444) (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}

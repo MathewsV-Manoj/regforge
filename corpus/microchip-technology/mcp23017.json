@@ -1,0 +1,291 @@
+{
+  "device": {
+    "buses": [
+      "i2c"
+    ],
+    "description": "16-bit I2C I/O expander with interrupt output",
+    "i2c_addresses": [
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "manufacturer": "Microchip Technology",
+    "part_number": "MCP23017",
+    "register_address_bits": 8,
+    "registers": [
+      {
+        "access": "rw",
+        "address": 0,
+        "description": "Pin direction. 1 = input, 0 = output. All pins are inputs after reset. (port A)",
+        "fields": [],
+        "name": "IODIRA",
+        "reset_value": 255,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 1,
+        "description": "Pin direction. 1 = input, 0 = output. All pins are inputs after reset. (port B)",
+        "fields": [],
+        "name": "IODIRB",
+        "reset_value": 255,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 2,
+        "description": "Input polarity. 1 = the GPIO register reflects the inverted pin value. (port A)",
+        "fields": [],
+        "name": "IPOLA",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 3,
+        "description": "Input polarity. 1 = the GPIO register reflects the inverted pin value. (port B)",
+        "fields": [],
+        "name": "IPOLB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 4,
+        "description": "Interrupt-on-change enable, per pin (port A)",
+        "fields": [],
+        "name": "GPINTENA",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 5,
+        "description": "Interrupt-on-change enable, per pin (port B)",
+        "fields": [],
+        "name": "GPINTENB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 6,
+        "description": "Default comparison value, used when INTCON selects comparison mode (port A)",
+        "fields": [],
+        "name": "DEFVALA",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 7,
+        "description": "Default comparison value, used when INTCON selects comparison mode (port B)",
+        "fields": [],
+        "name": "DEFVALB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 8,
+        "description": "Interrupt control. 1 = compare against DEFVAL, 0 = compare against the previous value. (port A)",
+        "fields": [],
+        "name": "INTCONA",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 9,
+        "description": "Interrupt control. 1 = compare against DEFVAL, 0 = compare against the previous value. (port B)",
+        "fields": [],
+        "name": "INTCONB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 10,
+        "description": "Device configuration, shared by both ports. Also readable and writable at 0x0B; the two addresses are the same physical register.",
+        "fields": [
+          {
+            "access": "rw",
+            "bit_offset": 7,
+            "bit_width": 1,
+            "description": "Register addressing mode. 0 = A/B registers interleaved (the mapping transcribed here), 1 = ports in separate banks.",
+            "enum_values": [],
+            "name": "BANK",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 6,
+            "bit_width": 1,
+            "description": "1 = INTA and INTB are internally connected",
+            "enum_values": [],
+            "name": "MIRROR",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 5,
+            "bit_width": 1,
+            "description": "Sequential operation disable. 1 = the address pointer does not increment.",
+            "enum_values": [],
+            "name": "SEQOP",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 4,
+            "bit_width": 1,
+            "description": "Disable slew-rate control on SDA",
+            "enum_values": [],
+            "name": "DISSLW",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 3,
+            "bit_width": 1,
+            "description": "Hardware address enable. No effect on the I2C part; present for the SPI variant.",
+            "enum_values": [],
+            "name": "HAEN",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 2,
+            "bit_width": 1,
+            "description": "1 = INT pin is open drain, overriding INTPOL",
+            "enum_values": [],
+            "name": "ODR",
+            "reset_value": 0
+          },
+          {
+            "access": "rw",
+            "bit_offset": 1,
+            "bit_width": 1,
+            "description": "INT pin polarity when ODR is 0. 0 = active low, 1 = active high.",
+            "enum_values": [],
+            "name": "INTPOL",
+            "reset_value": 0
+          }
+        ],
+        "name": "IOCON",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 12,
+        "description": "100 kOhm pull-up enable, per pin, on pins configured as inputs (port A)",
+        "fields": [],
+        "name": "GPPUA",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 13,
+        "description": "100 kOhm pull-up enable, per pin, on pins configured as inputs (port B)",
+        "fields": [],
+        "name": "GPPUB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 14,
+        "description": "Interrupt flags. 1 = this pin caused the interrupt. Read-only. (port A)",
+        "fields": [],
+        "name": "INTFA",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 15,
+        "description": "Interrupt flags. 1 = this pin caused the interrupt. Read-only. (port B)",
+        "fields": [],
+        "name": "INTFB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 16,
+        "description": "Port value captured at the time of the interrupt. Cleared by reading INTCAP or GPIO. (port A)",
+        "fields": [],
+        "name": "INTCAPA",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "ro",
+        "address": 17,
+        "description": "Port value captured at the time of the interrupt. Cleared by reading INTCAP or GPIO. (port B)",
+        "fields": [],
+        "name": "INTCAPB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 18,
+        "description": "Port value. Reading returns the pin state; writing modifies the output latch. (port A)",
+        "fields": [],
+        "name": "GPIOA",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 19,
+        "description": "Port value. Reading returns the pin state; writing modifies the output latch. (port B)",
+        "fields": [],
+        "name": "GPIOB",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 20,
+        "description": "Output latch. Reading returns the latch, not the pin. (port A)",
+        "fields": [],
+        "name": "OLATA",
+        "reset_value": 0,
+        "size_bits": 8
+      },
+      {
+        "access": "rw",
+        "address": 21,
+        "description": "Output latch. Reading returns the latch, not the pin. (port B)",
+        "fields": [],
+        "name": "OLATB",
+        "reset_value": 0,
+        "size_bits": 8
+      }
+    ]
+  },
+  "provenance": {
+    "cost_usd": 0.0,
+    "extracted_at": null,
+    "extraction_model": null,
+    "input_tokens": 0,
+    "notes": "Hand-authored seed entry, not machine-extracted. Transcribed for IOCON.BANK = 0, the power-on default; the BANK = 1 address map is not covered. Check against the datasheet before trusting it, then mark it verified.",
+    "output_tokens": 0,
+    "regforge_version": "0.1.0",
+    "schema_version": "1.0",
+    "source_filename": "Microchip MCP23017/MCP23S17 datasheet (DS20001952) (hand-transcribed)",
+    "source_pages": [],
+    "source_sha256": null,
+    "verified": false,
+    "verified_by": null
+  }
+}
