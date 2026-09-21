@@ -1,5 +1,9 @@
 # RegForge
 
+[![ci](https://github.com/MathewsV-Manoj/regforge/actions/workflows/ci.yml/badge.svg)](https://github.com/MathewsV-Manoj/regforge/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
+
 **Turn a datasheet into a verified register map and driver code.**
 
 You know the afternoon. A new sensor lands on your desk, the datasheet is 180
