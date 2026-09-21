@@ -1,17 +1,18 @@
 """Datasheet -> structured register map, via Claude with structured outputs.
 
-Two passes, deliberately using different models:
-
-  locate   cheap triage that confirms the heuristically-selected pages really
-           are register tables, and names the part. Wrong pages here waste an
-           expensive pass, so it is worth one cheap call to check.
-  extract  the accuracy-critical pass. Reads the sliced pages as PDF (not
-           extracted text, which scrambles table columns) and emits a Device
-           validated against the schema in models.py.
+Finding the register pages costs nothing: pdf.py scores every page with local
+heuristics, so the only model call is the accuracy-critical one. It reads the
+sliced pages as PDF rather than extracted text -- text extraction scrambles
+table columns, which is exactly the information a bit offset depends on -- and
+emits a Device validated against the schema in models.py.
 
 Structured outputs do the schema enforcement, validate.py does the semantic
 enforcement, and the combination is what makes the output trustworthy enough to
 generate driver code from.
+
+Long maps are extracted in chunks. A chunk boundary can cut a register table in
+half, so the same register may come back twice at different levels of detail;
+_merge_registers keeps the richer copy.
 """
 
 from __future__ import annotations
@@ -23,12 +24,7 @@ from dataclasses import dataclass, field
 import anthropic
 
 from . import __version__
-from .costs import (
-    DEFAULT_EXTRACT_MODEL,
-    DEFAULT_LOCATE_MODEL,
-    CostLedger,
-    Usage,
-)
+from .costs import DEFAULT_EXTRACT_MODEL, CostLedger, Usage
 from .models import Device, DeviceRecord, Provenance, Register
 from .pdf import LoadedPdf, chunk_pages, find_register_pages, load_pdf, slice_pdf
 
@@ -71,12 +67,6 @@ electrical characteristics, or command opcodes as registers.
 discrete named settings. Leave it empty for plain numeric fields such as \
 thresholds or counters.
 """
-
-_LOCATE_SYSTEM = """\
-You identify what a datasheet page extract contains. Answer strictly in the \
-requested structure. Be conservative: if you cannot see register tables, say so.\
-"""
-
 
 @dataclass
 class ExtractionResult:
@@ -275,5 +265,4 @@ __all__ = [
     "extract_from_pdf",
     "EXTRACTION_SYSTEM",
     "DEFAULT_EXTRACT_MODEL",
-    "DEFAULT_LOCATE_MODEL",
 ]
