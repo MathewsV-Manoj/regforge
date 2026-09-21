@@ -36,6 +36,9 @@ jobs:
           set -e
           test -f site/index.html
           test -f site/sitemap.xml
+          test -f site/search.html
+          test -f site/i2c-addresses.html
+          test -f site/search-index.json
           pages=$(ls site/parts/*.html | wc -l)
           echo "built $pages part pages"
           test "$pages" -gt 0
